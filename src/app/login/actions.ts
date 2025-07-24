@@ -1,8 +1,9 @@
 "use server";
 
-import { loginSchema } from "@/types/auth";
-import api from "@/lib/axios";
 import { cookies } from "next/headers";
+
+import { loginSchema } from "@/types/auth";
+import { AuthService } from "@/api";
 
 export async function login(prevState: any, formData: FormData) {
   const data = {
@@ -11,22 +12,22 @@ export async function login(prevState: any, formData: FormData) {
   };
 
   const result = loginSchema.safeParse(data);
+
   if (!result.success) {
     return { message: "Validation failed" };
   }
 
   try {
-    const res = await api.post("/auth/login", result.data);
+    const res = await AuthService.login(result.data);
+    const { accessToken, user } = res.data;
 
-    const { accessToken } = res.data;
-
-    cookies().set("token", accessToken, {
+    cookies().set("accessToken", accessToken, {
       httpOnly: true,
       path: "/",
       maxAge: 60 * 60 * 24,
     });
 
-    return { message: "" };
+    return { message: "login", user };
   } catch (err: any) {
     console.error("Login error:", err?.response?.data || err.message);
     return { message: "Invalid credentials" };

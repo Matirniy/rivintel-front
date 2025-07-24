@@ -9,7 +9,9 @@ import {
   FunnelIcon,
   ArrowsUpDownIcon,
 } from "@heroicons/react/24/solid";
-import SearchModal from "../searchModal";
+
+import SearchModal from "../modal/searchModal";
+import ActionButton from "./filterButton";
 
 export default function SearchBar() {
   const pathname = usePathname();
@@ -24,7 +26,6 @@ export default function SearchBar() {
 
   return (
     <div className="w-full max-w-screen-xl mx-auto space-y-4">
-      {/* Search input */}
       <div className="flex items-center gap-2">
         <div className="flex items-center w-full rounded-md bg-blue-100 p-2">
           <input
@@ -40,16 +41,12 @@ export default function SearchBar() {
         </div>
       </div>
 
-      {/* Buttons line under the search input */}
       <div className="flex justify-between">
-        <button
-          className="btn btn-outline btn-primary flex items-center gap-2"
+        <ActionButton
+          icon={<FunnelIcon className="w-5 h-5" />}
+          label="Filters"
           onClick={() => setModalType("filters")}
-        >
-          <FunnelIcon className="w-5 h-5" />
-          Filters
-        </button>
-
+        />
         {isDashboard ? (
           <>
             <button
@@ -60,26 +57,21 @@ export default function SearchBar() {
               Map
             </button>
 
-            <button
-              className="btn btn-outline btn-primary flex items-center gap-2"
+            <ActionButton
+              icon={<ArrowsUpDownIcon className="w-5 h-5" />}
+              label="Sort"
               onClick={() => setModalType("sort")}
-            >
-              <ArrowsUpDownIcon className="w-5 h-5" />
-              Sort
-            </button>
+            />
           </>
         ) : (
-          <button
-            className="btn btn-outline btn-primary flex items-center gap-2"
+          <ActionButton
+            icon={<ArrowsUpDownIcon className="w-5 h-5" />}
+            label="Sort"
             onClick={() => setModalType("sort")}
-          >
-            <ArrowsUpDownIcon className="w-5 h-5" />
-            Sort
-          </button>
+          />
         )}
       </div>
 
-      {/* Modal */}
       <SearchModal modalType={modalType} onClose={closeModal}>
         <div className="p-4">
           {modalType === "filters" && "Filter options here"}

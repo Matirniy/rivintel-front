@@ -1,22 +1,22 @@
 "use client";
 
+import { useCallback, useMemo, useState } from "react";
+
+import { useMapSearchStore } from "@/store/map";
 import {
   GoogleMap,
   useLoadScript,
   Marker,
   Circle,
 } from "@react-google-maps/api";
-import { useCallback, useMemo, useState } from "react";
+import Loader from "./loader";
 
 const containerStyle = {
   width: "100%",
   height: "100%",
 };
 
-const center = {
-  lat: 52.52,
-  lng: 13.405,
-};
+const center = { lat: 0, lng: 0 };
 
 const options = {
   disableDefaultUI: true,
@@ -32,21 +32,29 @@ export default function GoogleMapWithRadius() {
     useState<google.maps.LatLngLiteral | null>(null);
   const [radius, setRadius] = useState(1000);
 
-  const onMapClick = useCallback((e: google.maps.MapMouseEvent) => {
-    if (e.latLng) {
-      setSelectedPosition({
-        lat: e.latLng.lat(),
-        lng: e.latLng.lng(),
-      });
-    }
-  }, []);
+  const setLat = useMapSearchStore((state) => state.setLat);
+  const setLng = useMapSearchStore((state) => state.setLng);
+
+  const onMapClick = useCallback(
+    (e: google.maps.MapMouseEvent) => {
+      if (e.latLng) {
+        const lat = e.latLng.lat();
+        const lng = e.latLng.lng();
+
+        setSelectedPosition({ lat, lng });
+        setLat(lat);
+        setLng(lng);
+      }
+    },
+    [setLat, setLng]
+  );
 
   const mapCenter = useMemo(
     () => selectedPosition ?? center,
     [selectedPosition]
   );
 
-  if (!isLoaded) return <div>Loading map...</div>;
+  if (!isLoaded) return <Loader />;
 
   return (
     <div className="w-full">
@@ -69,7 +77,7 @@ export default function GoogleMapWithRadius() {
         <GoogleMap
           mapContainerStyle={containerStyle}
           center={mapCenter}
-          zoom={selectedPosition ? 13 : 11}
+          zoom={2}
           options={options}
           onClick={onMapClick}
         >
