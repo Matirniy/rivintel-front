@@ -8,12 +8,13 @@ import { PlaceFieldLabels } from "./constant";
 import { XMarkIcon } from "@heroicons/react/24/outline";
 
 export default function FilterCondition({ index }: { index: number }) {
-  const { conditions, updateCondition, removeCondition } = useFiltersStore();
+  const { filterConditions, updateFilterCondition, removeFilterCondition } =
+    useFiltersStore();
 
-  const condition = conditions[index];
-  
+  const condition = filterConditions[index];
+
   function onFieldChange(e: React.ChangeEvent<HTMLSelectElement>) {
-    updateCondition(index, {
+    updateFilterCondition(index, {
       ...condition,
       field: e.target.value as PlaceFields,
     });
@@ -25,15 +26,15 @@ export default function FilterCondition({ index }: { index: number }) {
     const value =
       e.target.type === "checkbox" ? e.target.checked : e.target.value;
 
-    updateCondition(index, { ...condition, value: value });
+    updateFilterCondition(index, { ...condition, value: value });
   }
 
   return (
-    <div className="flex items-center justify-between max-w-[420px] sm:w-[75%] w-[100%] gap-1 my-2 text-sm">
+    <div className="flex items-center justify-between w-[100%] gap-1 my-2 text-sm">
       <select
         value={condition.field}
         onChange={onFieldChange}
-        className="select select-bordered select-sm focus:outline-none focus:ring-0 "
+        className="select select-bordered select-sm focus:outline-none focus:ring-0 w-[85%]"
       >
         {Object.entries(PlaceFields).map(([key, val]) => (
           <option key={val} value={val}>
@@ -74,7 +75,7 @@ export default function FilterCondition({ index }: { index: number }) {
       )}
 
       <button
-        onClick={() => removeCondition(index)}
+        onClick={() => removeFilterCondition(index)}
         className="rounded hover:bg-base-200 transition cursor-pointer"
         aria-label="Close"
       >

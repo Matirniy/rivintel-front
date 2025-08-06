@@ -17,6 +17,7 @@ export default function UserModal({ setOpen }: UserModalProps) {
 
     logout();
     setOpen(false);
+
     router.push("/login");
   };
 

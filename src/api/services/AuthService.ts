@@ -3,6 +3,7 @@
 /* tslint:disable */
 /* eslint-disable */
 import type { AuthLoginRequest } from '../models/AuthLoginRequest';
+import type { AuthRefreshRequest } from '../models/AuthRefreshRequest';
 import type { AuthStoreRequest } from '../models/AuthStoreRequest';
 import type { CancelablePromise } from '../core/CancelablePromise';
 import { OpenAPI } from '../core/OpenAPI';
@@ -39,13 +40,18 @@ export class AuthService {
         });
     }
     /**
+     * @param requestBody
      * @returns any Ok
      * @throws ApiError
      */
-    public static refresh(): CancelablePromise<> {
+    public static refresh(
+        requestBody: AuthRefreshRequest,
+    ): CancelablePromise<> {
         return __request(OpenAPI, {
             method: 'POST',
             url: '/auth/refresh',
+            body: requestBody,
+            mediaType: 'application/json',
         });
     }
 }

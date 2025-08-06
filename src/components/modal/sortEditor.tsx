@@ -1,10 +1,12 @@
 "use client";
 
-import { useSortingStore } from "@/store/sorting";
 import { PlaceFields } from "@/types/google";
+import { SortEditorProps } from "@/types/sortEditor.types";
 
-export default function SortEditor() {
-  const { sortField, setSortField } = useSortingStore();
+export default function SortEditor({
+  sortField,
+  setSortField,
+}: React.PropsWithChildren<SortEditorProps>) {
 
   return (
     <div className="flex flex-col space-y-4">

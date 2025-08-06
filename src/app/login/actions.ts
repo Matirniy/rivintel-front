@@ -1,7 +1,6 @@
 "use server";
 
 import { cookies } from "next/headers";
-
 import { loginSchema } from "@/types/auth";
 import { AuthService } from "@/api";
 
@@ -19,12 +18,24 @@ export async function login(prevState: any, formData: FormData) {
 
   try {
     const res = await AuthService.login(result.data);
-    const { accessToken, user } = res.data;
+    const { accessToken, refreshToken, user } = res.data;
 
-    cookies().set("accessToken", accessToken, {
-      httpOnly: true,
+    const cookieStore = await cookies();
+
+    cookieStore.set("accessToken", accessToken, {
+      httpOnly: false,
+      secure: true,
+      sameSite: "strict",
       path: "/",
-      maxAge: 60 * 60 * 24,
+      maxAge: 60 * 60,
+    });
+
+    cookieStore.set("refreshToken", refreshToken, {
+      httpOnly: true,
+      secure: true,
+      sameSite: "strict",
+      path: "/",
+      maxAge: 60 * 60 * 24 * 14,
     });
 
     return { message: "login", user };

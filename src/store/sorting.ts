@@ -1,11 +1,6 @@
 import { create } from "zustand";
 
-import { PlaceFields } from "@/types/google";
-
-interface SortingState {
-  sortField: PlaceFields | null;
-  setSortField: (field: PlaceFields) => void;
-}
+import SortingState from "@/types/sorting.types";
 
 export const useSortingStore = create<SortingState>((set) => ({
   sortField: null,

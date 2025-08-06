@@ -1,14 +1,14 @@
 "use client";
 
 import { useCallback, useMemo, useState } from "react";
-
-import { useMapSearchStore } from "@/store/map";
 import {
   GoogleMap,
   useLoadScript,
   Marker,
   Circle,
 } from "@react-google-maps/api";
+
+import { useMapSearchStore } from "@/store/map";
 import Loader from "./loader";
 
 const containerStyle = {
@@ -57,7 +57,7 @@ export default function GoogleMapWithRadius() {
   if (!isLoaded) return <Loader />;
 
   return (
-    <div className="w-full">
+    <div className="w-full h-[calc(100%-45px)]">
       <div className="mb-4">
         <label className="block mb-1 text-sm font-medium">
           Radius: {radius} meters
@@ -73,7 +73,7 @@ export default function GoogleMapWithRadius() {
         />
       </div>
 
-      <div style={{ height: "calc(100vh - 64px - 100px - 64px - 120px)" }}>
+      <div style={{ height: "calc(100% - 64px)" }}>
         <GoogleMap
           mapContainerStyle={containerStyle}
           center={mapCenter}

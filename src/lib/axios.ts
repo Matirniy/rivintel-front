@@ -1,13 +1,23 @@
+"use server";
+
 import axios from "axios";
+import { cookies } from "next/headers";
 
-import { AuthService } from "@/api";
+import { ReadonlyRequestCookies } from "next/dist/server/web/spec-extension/adapters/request-cookies";
+import refreshApi, { refreshAccessToken } from "./refresh";
 
-function getAccessToken(): string | null {
-  if (typeof document === "undefined") return null;
+async function getTokens(): Promise<{
+  accessToken: string | null;
+  refreshToken: string | null;
+  cookieStore: ReadonlyRequestCookies;
+}> {
+  const cookieStore = await cookies();
 
-  const match = document.cookie.match(/(?:^|; )accessToken=([^;]*)/);
-
-  return match ? decodeURIComponent(match[1]) : null;
+  return {
+    accessToken: cookieStore.get("accessToken")?.value ?? null,
+    refreshToken: cookieStore.get("refreshToken")?.value ?? null,
+    cookieStore: cookieStore,
+  };
 }
 
 const api = axios.create({
@@ -15,16 +25,18 @@ const api = axios.create({
   withCredentials: true,
 });
 
-api.interceptors.request.use((config) => {
-  const token = getAccessToken();
+api.interceptors.request.use(async (config) => {
+  const { accessToken } = await getTokens();
 
-  if (token) config.headers.Authorization = `Bearer ${token}`;
+  if (accessToken) config.headers.Authorization = `Bearer ${accessToken}`;
 
   return config;
 });
 
 api.interceptors.response.use(
-  (res) => res,
+  (res) => {
+    return res;
+  },
   async (error) => {
     const originalRequest = error.config;
 
@@ -36,16 +48,12 @@ api.interceptors.response.use(
       originalRequest._retry = true;
 
       try {
-        const res = await AuthService.refresh();
-
-        const newAccessToken = res.accessToken;
-
-        document.cookie = `accessToken=${newAccessToken}; path=/; secure; samesite=strict`;
-
+        await refreshAccessToken();
+       
         return api(originalRequest);
       } catch (refreshError) {
         return Promise.reject(refreshError);
-      }
+      } 
     }
 
     return Promise.reject(error);

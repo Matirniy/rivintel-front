@@ -43,4 +43,57 @@ export class GoogleService {
             },
         });
     }
+    /**
+     * @param searchText
+     * @param lat
+     * @param lon
+     * @param isEmptyWebsite
+     * @param isEmptySocialWebsite
+     * @param gridCount
+     * @param sort Sort method (only one allowed)
+     * @param fields
+     * @returns any
+     * @throws ApiError
+     */
+    public static googleControllerListDemo(
+        searchText: string,
+        lat: string,
+        lon: string,
+        isEmptyWebsite?: boolean,
+        isEmptySocialWebsite?: boolean,
+        gridCount?: number,
+        sort?: 'rating' | 'rating count' | 'display name',
+        fields?: Array<'places.id' | 'places.displayName' | 'places.formattedAddress' | 'places.googleMapsUri' | 'places.internationalPhoneNumber' | 'places.websiteUri' | 'places.rating' | 'places.userRatingCount' | 'places.businessStatus' | 'places.location' | 'places.viewport' | 'places.plusCode' | 'places.types' | 'places.addressComponents' | 'places.regularOpeningHours' | 'places.currentOpeningHours' | 'places.secondaryOpeningHours' | 'places.specialDays' | 'places.utcOffsetMinutes' | 'places.photos' | 'places.reviews' | 'places.priceLevel' | 'places.accessibilityOptions' | 'places.editorialSummary' | 'places.takeout' | 'places.delivery' | 'places.dineIn' | 'places.servesBeer' | 'places.servesBreakfast' | 'places.servesBrunch' | 'places.servesDinner' | 'places.servesLunch' | 'places.servesVegetarianFood' | 'places.servesWine' | 'places.reservable' | 'places.goodForChildren' | 'places.paymentOptions' | 'places.parkingOptions' | 'places.businessName' | 'places.businessContact'>,
+    ): CancelablePromise<any> {
+        return __request(OpenAPI, {
+            method: 'GET',
+            url: '/google/demo',
+            query: {
+                'searchText': searchText,
+                'lat': lat,
+                'lon': lon,
+                'isEmptyWebsite': isEmptyWebsite,
+                'isEmptySocialWebsite': isEmptySocialWebsite,
+                'gridCount': gridCount,
+                'sort': sort,
+                'fields': fields,
+            },
+        });
+    }
+    /**
+     * @param fields
+     * @returns any
+     * @throws ApiError
+     */
+    public static googleControllerView(
+        fields?: Array<'places.id' | 'places.displayName' | 'places.formattedAddress' | 'places.googleMapsUri' | 'places.internationalPhoneNumber' | 'places.websiteUri' | 'places.rating' | 'places.userRatingCount' | 'places.businessStatus' | 'places.location' | 'places.viewport' | 'places.plusCode' | 'places.types' | 'places.addressComponents' | 'places.regularOpeningHours' | 'places.currentOpeningHours' | 'places.secondaryOpeningHours' | 'places.specialDays' | 'places.utcOffsetMinutes' | 'places.photos' | 'places.reviews' | 'places.priceLevel' | 'places.accessibilityOptions' | 'places.editorialSummary' | 'places.takeout' | 'places.delivery' | 'places.dineIn' | 'places.servesBeer' | 'places.servesBreakfast' | 'places.servesBrunch' | 'places.servesDinner' | 'places.servesLunch' | 'places.servesVegetarianFood' | 'places.servesWine' | 'places.reservable' | 'places.goodForChildren' | 'places.paymentOptions' | 'places.parkingOptions' | 'places.businessName' | 'places.businessContact'>,
+    ): CancelablePromise<any> {
+        return __request(OpenAPI, {
+            method: 'GET',
+            url: '/google/{id}',
+            query: {
+                'fields': fields,
+            },
+        });
+    }
 }

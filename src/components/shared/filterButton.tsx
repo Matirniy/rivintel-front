@@ -1,6 +1,11 @@
 import ActionButtonProps from "@/types/actionButton.types";
 
-export default function ActionButton({ icon, label, count, ...props }: ActionButtonProps) {
+export default function ActionButton({
+  icon,
+  label,
+  count,
+  ...props
+}: ActionButtonProps) {
   return (
     <button
       {...props}
@@ -9,7 +14,7 @@ export default function ActionButton({ icon, label, count, ...props }: ActionBut
       {icon}
       {label}
       {typeof count === "number" && count > 0 && (
-        <span className="badge badge-sm badge-secondary absolute -top-1 -right-1">
+        <span className="badge badge-sm badge-primary absolute -top-2 -right-2">
           {count}
         </span>
       )}

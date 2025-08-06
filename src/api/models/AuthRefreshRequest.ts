@@ -2,10 +2,7 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-import type { Users } from './Users';
-export type AuthResponse = {
-    accessToken: string;
+export type AuthRefreshRequest = {
     refreshToken: string;
-    user: Users;
 };
 

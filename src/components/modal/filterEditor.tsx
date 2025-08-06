@@ -2,16 +2,18 @@
 
 import React from "react";
 
-import { useFiltersStore } from "@/store/filters";
 import FilterCondition from "./filterCondition";
 import { PlaceFields } from "@/types/google";
+import { FilterEditorProps } from "@/types/filterEditor.types";
 
-export default function FilterEditor() {
-  const { conditions, addCondition } = useFiltersStore();
+export default function FilterEditor({
+  filterConditions,
+  addFilterCondition,
+}: React.PropsWithChildren<FilterEditorProps>) {
 
   function addNewCondition() {
-    addCondition({
-      id: conditions.length,
+    addFilterCondition({
+      id: filterConditions.length,
       field: PlaceFields.UNSELECTED,
       value: true,
     });
@@ -20,7 +22,7 @@ export default function FilterEditor() {
   return (
     <div className="h-[92%]">
       <div className="h-[88%] flex flex-col items-center overflow-auto">
-        {conditions.map((_, i) => (
+        {filterConditions?.map((_, i) => (
           <FilterCondition key={i} index={i} />
         ))}
       </div>

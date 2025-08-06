@@ -3,7 +3,7 @@
 /* tslint:disable */
 /* eslint-disable */
 export type AuthLoginRequest = {
-    userName: string;
+    email: string;
     password: string;
 };
 

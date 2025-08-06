@@ -8,6 +8,7 @@ export { OpenAPI } from './core/OpenAPI';
 export type { OpenAPIConfig } from './core/OpenAPI';
 
 export type { AuthLoginRequest } from './models/AuthLoginRequest';
+export type { AuthRefreshRequest } from './models/AuthRefreshRequest';
 export type { AuthResponse } from './models/AuthResponse';
 export type { AuthStoreRequest } from './models/AuthStoreRequest';
 export type { Users } from './models/Users';

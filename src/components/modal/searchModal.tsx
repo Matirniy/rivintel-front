@@ -4,15 +4,15 @@ import { XMarkIcon } from "@heroicons/react/24/outline";
 import FilterEditor from "./filterEditor";
 import GoogleMap from "../shared/googleMap";
 import SortEditor from "./sortEditor";
-
-interface SearchModalProps {
-  modalType: "filters" | "map" | "sort" | null;
-  onClose: () => void;
-}
+import type { SearchModalProps } from "@/types/searchModal.types";
 
 export default function SearchModal({
   modalType,
   onClose,
+  sortField,
+  setSortField,
+  filterConditions,
+  addFilterCondition,
 }: React.PropsWithChildren<SearchModalProps>) {
   if (!modalType) return null;
 
@@ -40,8 +40,17 @@ export default function SearchModal({
           </button>
         </div>
 
-        {modalType === "filters" && <FilterEditor />}
-        {modalType === "sort" && <SortEditor />}
+        {modalType === "filters" && filterConditions && addFilterCondition && (
+          <FilterEditor
+            filterConditions={filterConditions}
+            addFilterCondition={addFilterCondition}
+          />
+        )}
+
+        {modalType === "sort" && (
+          <SortEditor sortField={sortField} setSortField={setSortField} />
+        )}
+        
         {modalType === "map" && <GoogleMap />}
       </div>
     </div>
