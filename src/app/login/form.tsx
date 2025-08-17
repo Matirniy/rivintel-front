@@ -1,15 +1,35 @@
 "use client";
 
 import Link from "next/link";
-import { useActionState } from "react";
+import { useActionState, useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
+
 import type { login } from "./actions";
+import { useAuthStore } from "@/store/auth";
+import { LoadingButton } from "@/components/shared/loadingButton";
 
 export default function LoginForm({ action }: { action: typeof login }) {
-  const [state, formAction] = useActionState(action, { message: "" });
+  const [state, formAction, isPending] = useActionState(action, { message: "" });
+  const setUser = useAuthStore((s) => s.setUser);
+  const router = useRouter();
+
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  useEffect(() => {
+    if (state.message === "login" && state.user) {
+      setUser(state.user);
+      router.push("/dashboard");
+    }
+  }, [state, setUser, router]);
 
   return (
     <form
-      action={formAction}
+      action={(formData) => {
+        setEmail(formData.get("email")?.toString() || "");
+        setPassword(formData.get("password")?.toString() || "");
+        return formAction(formData);
+      }}
       className="card bg-base-100 shadow-2xl p-6 space-y-4 w-80"
     >
       <h2 className="text-xl font-semibold text-center">Login</h2>
@@ -19,6 +39,8 @@ export default function LoginForm({ action }: { action: typeof login }) {
         type="email"
         placeholder="Email"
         className="input input-bordered w-full"
+        value={email}
+        onChange={(e) => setEmail(e.target.value)}
         required
       />
       <input
@@ -26,16 +48,18 @@ export default function LoginForm({ action }: { action: typeof login }) {
         type="password"
         placeholder="Password"
         className="input input-bordered w-full"
+        value={password}
+        onChange={(e) => setPassword(e.target.value)}
         required
       />
 
-      {state?.message && (
+      {state?.message && state.message !== "login" && (
         <div className="text-error text-sm">{state.message}</div>
       )}
 
-      <button type="submit" className="btn btn-primary w-full">
+      <LoadingButton type="submit" isLoading={isPending}>
         Log In
-      </button>
+      </LoadingButton>
 
       <div className="text-center">
         <span className="text-sm">Don&apos;t have an account?</span>{" "}

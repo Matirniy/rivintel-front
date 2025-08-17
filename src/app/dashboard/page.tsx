@@ -1,24 +1,18 @@
-"use client";
+import { Suspense } from "react";
 
 import SearchBar from "@/components/shared/searchBar";
-import CompanyCard from "./companyCard";
+import CompanyList from "./companyList";
+import Loader from "@/components/shared/loader";
+
+export const revalidate = 60;
 
 export default function DashboardPage() {
-
   return (
-    <div className="px-4 py-6 space-y-4">
+    <div className="px-2 py-4 h-full space-y-4">
       <SearchBar />
-
-      <div className="grid gap-4 mt-6">
-        <CompanyCard
-          name="Coffee Club Berlin"
-          rating={4.5}
-          address="Alexanderplatz 1, 10178 Berlin, Germany"
-          phone="+49 30 123456"
-          email="info@coffeeclub.de"
-          website="https://coffeeclub.de"
-        />
-      </div>
+      <Suspense fallback={<Loader />}>
+        <CompanyList />
+      </Suspense>
     </div>
   );
 }

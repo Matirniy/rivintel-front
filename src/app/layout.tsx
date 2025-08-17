@@ -1,9 +1,11 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
-import Header from "@/components/shared/header";
-import Footer from "@/components/shared/footer";
+
+import Header from "@/components/layout/header";
+import Footer from "@/components/layout/footer";
 
 import "./globals.css";
+import { AuthInit } from "@/components/authInit";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -23,13 +25,16 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="ru">
+    <html lang="en">
+      <AuthInit />
       <body className={inter.className}>
-        <div className="flex flex-col min-h-screen">
+        <div className="flex flex-col h-[100vh]">
           <Header />
 
-          <main className="flex-grow bg-base-200">
-            <div className="w-full max-w-screen-xl mx-auto">{children}</div>
+          <main className="h-[calc(100%-112px)] bg-base-200">
+            <div className="w-full h-full max-w-screen-xl mx-auto">
+              {children}
+            </div>
           </main>
 
           <Footer />

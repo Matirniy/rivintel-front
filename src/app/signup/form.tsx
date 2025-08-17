@@ -1,15 +1,41 @@
 "use client";
 
 import Link from "next/link";
-import { useActionState } from "react";
+import { useActionState, useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
+
 import type { signup } from "./actions";
+import { useAuthStore } from "@/store/auth";
+import { LoadingButton } from "@/components/shared/loadingButton";
 
 export default function SignupForm({ action }: { action: typeof signup }) {
-  const [state, formAction] = useActionState(action, { message: "" });
+  const [state, formAction, isPending] = useActionState(action, {
+    message: "",
+  });
+  const setUser = useAuthStore((s) => s.setUser);
+  const router = useRouter();
+
+  const [name, setName] = useState("");
+  const [userName, setUserName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  useEffect(() => {
+    if (state.message === "signup" && state.user) {
+      setUser(state.user);
+      router.push("/payment");
+    }
+  }, [state, setUser, router]);
 
   return (
     <form
-      action={formAction}
+      action={(formData) => {
+        setName(formData.get("name")?.toString() || "");
+        setUserName(formData.get("userName")?.toString() || "");
+        setEmail(formData.get("email")?.toString() || "");
+        setPassword(formData.get("password")?.toString() || "");
+        return formAction(formData);
+      }}
       className="card bg-base-100 shadow-2xl p-6 space-y-4 w-80"
     >
       <h2 className="text-xl font-semibold text-center">Sign Up</h2>
@@ -18,12 +44,16 @@ export default function SignupForm({ action }: { action: typeof signup }) {
         name="name"
         type="text"
         placeholder="Name (optional)"
+        value={name}
+        onChange={(e) => setName(e.target.value)}
         className="input input-bordered w-full"
       />
       <input
-        name="username"
+        name="userName"
         type="text"
         placeholder="Username"
+        value={userName}
+        onChange={(e) => setUserName(e.target.value)}
         className="input input-bordered w-full"
         required
       />
@@ -31,6 +61,8 @@ export default function SignupForm({ action }: { action: typeof signup }) {
         name="email"
         type="email"
         placeholder="Email"
+        value={email}
+        onChange={(e) => setEmail(e.target.value)}
         className="input input-bordered w-full"
         required
       />
@@ -38,17 +70,19 @@ export default function SignupForm({ action }: { action: typeof signup }) {
         name="password"
         type="password"
         placeholder="Password"
+        value={password}
+        onChange={(e) => setPassword(e.target.value)}
         className="input input-bordered w-full"
         required
       />
 
-      {state?.message && (
+      {state?.message && state.message !== "signup" && (
         <div className="text-error text-sm">{state.message}</div>
       )}
 
-      <button type="submit" className="btn btn-primary w-full">
+      <LoadingButton type="submit" isLoading={isPending}>
         Create Account
-      </button>
+      </LoadingButton>
 
       <div className="text-center">
         <span className="text-sm">Already have an account?</span>{" "}
