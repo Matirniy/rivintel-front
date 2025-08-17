@@ -10,7 +10,8 @@ import CompanyCard from "./companyCard";
 import { triggerGoogleSearch } from "./actions";
 import { useMapSearchStore } from "@/store/map";
 import Loader from "@/components/shared/loader";
-import COMPANIES from "./constant";
+import { useAuthStore } from "@/store/auth";
+import { CompanyDataProps } from "@/types/company";
 
 export default function CompanyList() {
   const router = useRouter();
@@ -27,10 +28,11 @@ export default function CompanyList() {
     setSearchText,
   } = useMapSearchStore();
 
-  const [companies, setCompanies] = useState<any[]>([]);
+  const [companies, setCompanies] = useState<CompanyDataProps[]>([]);
   const [isLoading, setIsLoading] = useState(false);
+  const { user } = useAuthStore();
 
-  const isAuthenticated = false;
+  const isSubscribed = !!user?.isSubscription;
 
   useEffect(() => {
     const fetchCompanies = async () => {
@@ -49,6 +51,7 @@ export default function CompanyList() {
 
       if (!lng && !isNaN(queryLng)) {
         lng = queryLng;
+
         setLng(queryLng);
       }
 
@@ -71,6 +74,7 @@ export default function CompanyList() {
         lng,
         sortField,
         filterConditions,
+        isSubscribed,
       });
 
       setCompanies(response || []);
@@ -80,18 +84,27 @@ export default function CompanyList() {
     fetchCompanies();
   }, [stateLat, stateLng, stateSearchText, sortField, filterConditions]);
 
+  const openCompany = (id: string, isLocked: boolean) => {
+    if (!isLocked) router.push(`/company/${id}`);
+  };
+
   if (isLoading) return <Loader />;
 
-  const renderCompanies = !isAuthenticated ? COMPANIES : companies;
-
   return (
-    <div className="grid gap-4 mt-6">
-      {renderCompanies.map((company, index) => {
-        const isLocked = !isAuthenticated && index === 2;
+    <div className="flex flex-col mt-6 h-[calc(100%-128px)] overflow-y-auto">
+      {companies.map((company, index) => {
+        const isLocked = !isSubscribed && index === 2;
 
         return (
-          <div key={company.name + index} className="relative">
-            <div className={isLocked ? "pointer-events-none opacity-30" : ""}>
+          <div key={company.id} className="relative mb-6">
+            <div
+              onClick={() => {
+                openCompany(company.id, isLocked);
+              }}
+              className={`block cursor-pointer ${
+                isLocked ? "pointer-events-none opacity-30" : ""
+              }`}
+            >
               <CompanyCard {...company} />
             </div>
 

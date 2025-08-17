@@ -2,13 +2,15 @@
 
 import Link from "next/link";
 import { useState } from "react";
-import { FaUser } from "react-icons/fa6";
+import { FaUser, FaUserSlash } from "react-icons/fa6";
 
 import LogoIcon from "../icons/logoIcon";
 import UserModal from "./userModal";
+import { useAuthStore } from "@/store/auth";
 
 export default function Header() {
   const [open, setOpen] = useState(false);
+  const { user, logout } = useAuthStore();
 
   return (
     <header className="bg-base-100 shadow px-2 py-2">
@@ -22,10 +24,10 @@ export default function Header() {
             onClick={() => setOpen(!open)}
             className="btn btn-ghost btn-circle text-primary"
           >
-            <FaUser className="h-5 w-5" />
+            {user ? <FaUser className="h-5 w-5" /> : <FaUserSlash size={24} />}
           </button>
 
-          {open && <UserModal setOpen={setOpen} />}
+          {open && <UserModal setOpen={setOpen} user={user} logout={logout} />}
         </div>
       </div>
     </header>

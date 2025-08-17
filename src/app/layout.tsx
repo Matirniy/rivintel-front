@@ -28,10 +28,10 @@ export default function RootLayout({
     <html lang="en">
       <AuthInit />
       <body className={inter.className}>
-        <div className="flex flex-col min-h-screen">
+        <div className="flex flex-col h-[100vh]">
           <Header />
 
-          <main className="flex-grow md:h-[calc(100vh-280px)] bg-base-200">
+          <main className="h-[calc(100%-112px)] bg-base-200">
             <div className="w-full h-full max-w-screen-xl mx-auto">
               {children}
             </div>

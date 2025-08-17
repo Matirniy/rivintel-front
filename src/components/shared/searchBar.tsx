@@ -1,7 +1,7 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { useState } from "react";
+import { usePathname, useRouter } from "next/navigation";
 import { FaMapMarkedAlt } from "react-icons/fa";
 import {
   MagnifyingGlassIcon,
@@ -18,35 +18,15 @@ import { useMapSearchStore } from "@/store/map";
 export default function SearchBar() {
   const pathname = usePathname();
   const router = useRouter();
-  const searchParams = useSearchParams();
   const [modalType, setModalType] = useState<"filters" | "map" | "sort" | null>(
     null
   );
   const { filterConditions, addFilterCondition } = useFiltersStore();
   const { sortField, setSortField } = useSortingStore();
-  const { searchText, lng, lat, setSearchText, setLng, setLat } =
-    useMapSearchStore();
+  const { searchText, lng, lat, setSearchText } = useMapSearchStore();
 
   const closeModal = () => setModalType(null);
   const isDashboard = pathname === "/dashboard";
-
-  // useEffect(() => {
-  //   const querySearchText = searchParams.get("searchtext");
-  //   const lat = searchParams.get("lat");
-  //   const lng = searchParams.get("lng");
-
-  //   if (querySearchText) {
-  //     setSearchText(querySearchText);
-  //   }
-
-  //   if (lat) {
-  //     setLat(Number(lat));
-  //   }
-
-  //   if (lng) {
-  //     setLng(Number(lng));
-  //   }
-  // }, [searchParams, setLat, setLng, setSearchText]);
 
   function startSearch() {
     const params = new URLSearchParams();
@@ -66,8 +46,6 @@ export default function SearchBar() {
 
     if (pathname !== "/dashboard") {
       router.push(targetPath);
-    } else {
-      // router.replace(targetPath);
     }
   }
 

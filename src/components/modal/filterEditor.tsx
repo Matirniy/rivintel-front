@@ -3,7 +3,7 @@
 import React from "react";
 
 import FilterCondition from "./filterCondition";
-import { PlaceFields } from "@/types/google";
+import { PlacesFields } from "@/types/google";
 import { FilterEditorProps } from "@/types/filterEditor.types";
 
 export default function FilterEditor({
@@ -14,7 +14,7 @@ export default function FilterEditor({
   function addNewCondition() {
     addFilterCondition({
       id: filterConditions.length,
-      field: PlaceFields.UNSELECTED,
+      field: PlacesFields.UNSELECTED,
       value: true,
     });
   }

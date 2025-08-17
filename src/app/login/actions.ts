@@ -2,7 +2,7 @@
 
 import { cookies } from "next/headers";
 import { loginSchema } from "@/types/auth";
-import { AuthService } from "@/api";
+import { AuthService } from "@/app/api";
 
 export async function login(prevState: any, formData: FormData) {
   const data = {

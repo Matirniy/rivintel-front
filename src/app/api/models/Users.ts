@@ -4,6 +4,10 @@
 /* eslint-disable */
 export type Users = {
     id: number;
+    name: string;
+    userName: string;
+    email: string;
+    password: string;
     isConfirmEmail: boolean;
     isSubscription: boolean;
     createdAt: string;

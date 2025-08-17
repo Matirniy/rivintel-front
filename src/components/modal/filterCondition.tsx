@@ -3,7 +3,7 @@
 import React from "react";
 
 import { useFiltersStore } from "@/store/filters";
-import { PlaceFields } from "@/types/google";
+import { PlacesFields } from "@/types/google";
 import { PlaceFieldLabels } from "./constant";
 import { XMarkIcon } from "@heroicons/react/24/outline";
 
@@ -16,15 +16,12 @@ export default function FilterCondition({ index }: { index: number }) {
   function onFieldChange(e: React.ChangeEvent<HTMLSelectElement>) {
     updateFilterCondition(index, {
       ...condition,
-      field: e.target.value as PlaceFields,
+      field: e.target.value as PlacesFields,
     });
   }
 
-  function onValueChange(
-    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
-  ) {
-    const value =
-      e.target.type === "checkbox" ? e.target.checked : e.target.value;
+  function onValueChange(e: React.ChangeEvent<HTMLInputElement>) {
+    const value = e.target.checked;
 
     updateFilterCondition(index, { ...condition, value: value });
   }
@@ -36,7 +33,7 @@ export default function FilterCondition({ index }: { index: number }) {
         onChange={onFieldChange}
         className="select select-bordered select-sm focus:outline-none focus:ring-0 w-[85%]"
       >
-        {Object.entries(PlaceFields).map(([key, val]) => (
+        {Object.entries(PlacesFields).map(([key, val]) => (
           <option key={val} value={val}>
             {PlaceFieldLabels[val] || val}
           </option>

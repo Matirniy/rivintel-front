@@ -9,7 +9,7 @@ export class GoogleService {
     /**
      * @param searchText
      * @param lat
-     * @param lon
+     * @param lng
      * @param isEmptyWebsite
      * @param isEmptySocialWebsite
      * @param gridCount
@@ -18,10 +18,10 @@ export class GoogleService {
      * @returns any
      * @throws ApiError
      */
-    public static googleControllerList(
+    public static placeList(
         searchText: string,
         lat: string,
-        lon: string,
+        lng: string,
         isEmptyWebsite?: boolean,
         isEmptySocialWebsite?: boolean,
         gridCount?: number,
@@ -34,7 +34,7 @@ export class GoogleService {
             query: {
                 'searchText': searchText,
                 'lat': lat,
-                'lon': lon,
+                'lng': lng,
                 'isEmptyWebsite': isEmptyWebsite,
                 'isEmptySocialWebsite': isEmptySocialWebsite,
                 'gridCount': gridCount,
@@ -46,7 +46,7 @@ export class GoogleService {
     /**
      * @param searchText
      * @param lat
-     * @param lon
+     * @param lng
      * @param isEmptyWebsite
      * @param isEmptySocialWebsite
      * @param gridCount
@@ -55,10 +55,10 @@ export class GoogleService {
      * @returns any
      * @throws ApiError
      */
-    public static googleControllerListDemo(
+    public static placeDemoList(
         searchText: string,
         lat: string,
-        lon: string,
+        lng: string,
         isEmptyWebsite?: boolean,
         isEmptySocialWebsite?: boolean,
         gridCount?: number,
@@ -71,7 +71,7 @@ export class GoogleService {
             query: {
                 'searchText': searchText,
                 'lat': lat,
-                'lon': lon,
+                'lng': lng,
                 'isEmptyWebsite': isEmptyWebsite,
                 'isEmptySocialWebsite': isEmptySocialWebsite,
                 'gridCount': gridCount,
@@ -81,18 +81,18 @@ export class GoogleService {
         });
     }
     /**
-     * @param fields
+     * @param id
      * @returns any
      * @throws ApiError
      */
-    public static googleControllerView(
-        fields?: Array<'places.id' | 'places.displayName' | 'places.formattedAddress' | 'places.googleMapsUri' | 'places.internationalPhoneNumber' | 'places.websiteUri' | 'places.rating' | 'places.userRatingCount' | 'places.businessStatus' | 'places.location' | 'places.viewport' | 'places.plusCode' | 'places.types' | 'places.addressComponents' | 'places.regularOpeningHours' | 'places.currentOpeningHours' | 'places.secondaryOpeningHours' | 'places.specialDays' | 'places.utcOffsetMinutes' | 'places.photos' | 'places.reviews' | 'places.priceLevel' | 'places.accessibilityOptions' | 'places.editorialSummary' | 'places.takeout' | 'places.delivery' | 'places.dineIn' | 'places.servesBeer' | 'places.servesBreakfast' | 'places.servesBrunch' | 'places.servesDinner' | 'places.servesLunch' | 'places.servesVegetarianFood' | 'places.servesWine' | 'places.reservable' | 'places.goodForChildren' | 'places.paymentOptions' | 'places.parkingOptions' | 'places.businessName' | 'places.businessContact'>,
+    public static placeView(
+        id: string,
     ): CancelablePromise<any> {
         return __request(OpenAPI, {
             method: 'GET',
             url: '/google/{id}',
-            query: {
-                'fields': fields,
+            path: {
+                'id': id,
             },
         });
     }

@@ -1,7 +1,7 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 
-import { Users } from "@/api/models/Users";
+import { Users } from "@/app/api/models/Users";
 
 type AuthState = {
   user: Users | null;

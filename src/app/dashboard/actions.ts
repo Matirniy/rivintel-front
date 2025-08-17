@@ -1,19 +1,18 @@
 "use server";
 
-import { GoogleService } from "@/api";
-// import { revalidatePath } from "next/cache";
-// import { redirect } from "next/navigation";
-import { PlaceFields, SortOptions } from "@/types/google";
+import { GoogleService } from "@/app/api";
+import { PlacesFields, SortOptions } from "@/types/google";
+import DEFAULT_FIELDS from "./constant";
+import { CompanyDataProps } from "@/types/company";
+import { FilterCondition } from "@/types/filters.types";
 
 interface TriggerParams {
   searchText: string;
   lat: number;
   lng: number;
   sortField: SortOptions | null;
-  filterConditions: {
-    field: PlaceFields;
-    value: boolean;
-  }[];
+  filterConditions: FilterCondition[];
+  isSubscribed: boolean;
 }
 
 export async function triggerGoogleSearch({
@@ -22,34 +21,45 @@ export async function triggerGoogleSearch({
   lng,
   sortField,
   filterConditions,
+  isSubscribed,
 }: TriggerParams) {
   const isEmptyWebsite =
-    filterConditions.find((c) => c.field === PlaceFields.WEBSITE_URI)?.value ??
+    filterConditions.find((c) => c.field === PlacesFields.WEBSITE_URI)?.value ??
     undefined;
   const isEmptySocialWebsite = true;
-  //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-  // filterConditions.find((c) => c.field === PlaceFields.SOCIAL_WEBSITE)
-  //   ?.value ?? undefined;
 
   const fields = filterConditions
     .map((c) => c.field)
-    .filter((f) => f !== PlaceFields.UNSELECTED) as any[];
+    .filter((f) => f !== PlacesFields.UNSELECTED) as any[];
 
   try {
-    const companies = await GoogleService.googleControllerList(
-      searchText,
-      lat.toString(),
-      lng.toString(),
-      isEmptyWebsite,
-      isEmptySocialWebsite,
-      1,
-      sortField ?? undefined,
-      fields.length ? fields : undefined
-    );
+    let companies: CompanyDataProps[];
+
+    if (isSubscribed) {
+      companies = await GoogleService.placeList(
+        searchText,
+        lat.toString(),
+        lng.toString(),
+        isEmptyWebsite ?? false,
+        isEmptySocialWebsite ?? false,
+        0,
+        sortField ?? SortOptions.NAME,
+        fields.length ? fields : DEFAULT_FIELDS
+      );
+    } else {
+      companies = await GoogleService.placeDemoList(
+        searchText,
+        lat.toString(),
+        lng.toString(),
+        isEmptyWebsite ?? false,
+        isEmptySocialWebsite ?? false,
+        0,
+        sortField ?? SortOptions.NAME,
+        fields.length ? fields : DEFAULT_FIELDS
+      );
+    }
 
     return companies;
-    // revalidatePath("/dashboard");
-    // redirect("/dashboard");
   } catch (error) {
     console.error("Google search failed:", error);
   }

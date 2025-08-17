@@ -2,15 +2,15 @@
 
 import { cookies } from "next/headers";
 
-import { AuthService } from "@/api";
+import { AuthService } from "@/app/api";
 import { signupSchema } from "@/types/auth";
 
 export async function signup(prevState: any, formData: FormData) {
   const data = {
-    name: formData.get("name")?.toString() || undefined,
-    userName: formData.get("userName")?.toString() || "",
-    email: formData.get("email")?.toString() || "",
-    password: formData.get("password")?.toString() || "",
+    name: formData.get("name")?.toString(),
+    userName: formData.get("userName")?.toString(),
+    email: formData.get("email")?.toString(),
+    password: formData.get("password")?.toString(),
   };
 
   const result = signupSchema.safeParse(data);
@@ -28,7 +28,8 @@ export async function signup(prevState: any, formData: FormData) {
       return { message: "No token received" };
     }
 
-    const cookieStore = cookies();
+    const cookieStore = await cookies();
+
     cookieStore.set("accessToken", accessToken, {
       httpOnly: true,
       path: "/",

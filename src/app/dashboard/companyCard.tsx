@@ -1,20 +1,34 @@
-import { FaStar, FaPhone, FaEnvelope, FaMapMarkerAlt, FaGlobe } from "react-icons/fa";
-import Link from "next/link";
-import { CompanyCardProps } from "@/types/company";
-
+import { CompanyDataProps } from "@/types/company";
+import {
+  FaStar,
+  FaPhone,
+  FaEnvelope,
+  FaMapMarkerAlt,
+  FaGlobe,
+  FaArrowRight,
+} from "react-icons/fa";
 
 export default function CompanyCard({
-  name,
+  displayName,
   rating,
-  address,
-  phone,
-  email,
-  website,
-}: CompanyCardProps) {
+  formattedAddress,
+  internationalPhoneNumber,
+  websiteUri,
+}: CompanyDataProps) {
   return (
-    <div className="bg-base-100 shadow-md rounded p-4">
+    <div
+      className="
+        group
+        bg-base-100 rounded p-4
+        shadow-md
+        transition-shadow duration-300
+        hover:shadow-lg
+        relative
+        cursor-pointer
+      "
+    >
       <div className="flex justify-between items-start">
-        <h3 className="text-lg font-semibold">{name}</h3>
+        <h3 className="text-lg font-semibold">{displayName.text}</h3>
         <div className="flex items-center gap-1 text-yellow-500">
           <FaStar />
           <span className="text-sm font-medium">{rating}</span>
@@ -24,26 +38,48 @@ export default function CompanyCard({
       <div className="mt-2 text-sm space-y-1">
         <div className="flex items-center gap-2">
           <FaMapMarkerAlt />
-          <span>{address}</span>
+          <span>{formattedAddress}</span>
         </div>
 
         <div className="flex items-center gap-2">
           <FaPhone />
-          <span>{phone}</span>
+          <span>{internationalPhoneNumber}</span>
           <FaEnvelope className="ml-4" />
-          <span>{email}</span>
+          <a
+            href={`mailto:${"test@test.com"}`}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            {"test@test.com"}
+          </a>
         </div>
 
         <div className="flex items-center gap-2">
           <FaGlobe />
-          <Link
-            href={website}
-            target="_blank"
-            className="text-primary underline"
-          >
-            {website.replace(/^https?:\/\//, "")}
-          </Link>
+          {websiteUri ? (
+            <a
+              href={websiteUri}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-primary underline"
+            >
+              {websiteUri.replace(/^https?:\/\//, "")}
+            </a>
+          ) : (
+            <p>-</p>
+          )}
         </div>
+      </div>
+
+      <div
+        className="
+          absolute bottom-3 right-6 text-primary
+          transition-transform duration-300
+          pointer-events-none
+          group-hover:translate-x-2
+        "
+      >
+        <FaArrowRight />
       </div>
     </div>
   );

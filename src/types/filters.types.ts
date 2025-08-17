@@ -1,9 +1,9 @@
-import { PlaceFields } from "./google";
+import { PlacesFields } from "./google";
 
 export interface FilterCondition {
   id: number;
-  field: PlaceFields;
-  value: any;
+  field: PlacesFields;
+  value: boolean;
 }
 
 export interface FiltersState {
@@ -13,3 +13,4 @@ export interface FiltersState {
   updateFilterCondition: (id: number, condition: FilterCondition) => void;
   clearFilterConditions: () => void;
 }
+PlacesFields

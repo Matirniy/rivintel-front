@@ -4,7 +4,7 @@ export enum SortOptions {
   NAME = 'display name',
 }
 
-export enum PlaceFields {
+export enum PlacesFields {
   UNSELECTED = "",
   ID = 'places.id',
   DISPLAY_NAME = 'places.displayName',
@@ -46,4 +46,52 @@ export enum PlaceFields {
   PARKING_OPTIONS = 'places.parkingOptions',
   BUSINESS_NAME = 'places.businessName',
   BUSINESS_CONTACT = 'places.businessContact',
+}
+
+export enum PlaceFields {
+  // Essentials (IDs Only)
+  Attributions = 'attributions',
+  Id = 'id',
+  Name = 'name',
+  Photos = 'photos',
+
+  // Essentials
+  AddressComponents = 'addressComponents',
+  AddressDescriptor = 'addressDescriptor',
+  AdrFormatAddress = 'adrFormatAddress',
+  FormattedAddress = 'formattedAddress',
+  Location = 'location',
+  PlusCode = 'plusCode',
+  PostalAddress = 'postalAddress',
+  ShortFormattedAddress = 'shortFormattedAddress',
+  Types = 'types',
+  Viewport = 'viewport',
+
+  // Pro
+  AccessibilityOptions = 'accessibilityOptions',
+  BusinessStatus = 'businessStatus',
+  ContainingPlaces = 'containingPlaces',
+  DisplayName = 'displayName',
+  GoogleMapsLinks = 'googleMapsLinks',
+  GoogleMapsUri = 'googleMapsUri',
+  IconBackgroundColor = 'iconBackgroundColor',
+  IconMaskBaseUri = 'iconMaskBaseUri',
+  PrimaryType = 'primaryType',
+  PrimaryTypeDisplayName = 'primaryTypeDisplayName',
+  PureServiceAreaBusiness = 'pureServiceAreaBusiness',
+  SubDestinations = 'subDestinations',
+  UtcOffsetMinutes = 'utcOffsetMinutes',
+
+  // Enterprise
+  CurrentOpeningHours = 'currentOpeningHours',
+  CurrentSecondaryOpeningHours = 'currentSecondaryOpeningHours',
+  InternationalPhoneNumber = 'internationalPhoneNumber',
+  NationalPhoneNumber = 'nationalPhoneNumber',
+  PriceLevel = 'priceLevel',
+  PriceRange = 'priceRange',
+  Rating = 'rating',
+  RegularOpeningHours = 'regularOpeningHours',
+  RegularSecondaryOpeningHours = 'regularSecondaryOpeningHours',
+  UserRatingCount = 'userRatingCount',
+  WebsiteUri = 'websiteUri',
 }

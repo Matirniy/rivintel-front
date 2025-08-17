@@ -1,29 +1,29 @@
 import { create } from "zustand";
 
-import { PlaceFields } from "@/types/google";
+import { PlacesFields } from "@/types/google";
 import { FiltersState } from "@/types/filters.types";
 
 export const useFiltersStore = create<FiltersState>((set) => ({
   filterConditions: [
     {
       id: 0,
-      field: PlaceFields.UNSELECTED,
+      field: PlacesFields.UNSELECTED,
       value: false,
     },
   ],
   addFilterCondition: (condition) =>
     set((state) => ({
-      conditions: [...state.conditions, condition],
+      filterConditions: [...state.filterConditions, condition],
     })),
   removeFilterCondition: (id) =>
     set((state) => ({
-      conditions: state.conditions.filter((c) => c.id !== id),
+      filterConditions: state.filterConditions.filter((c) => c.id !== id),
     })),
   updateFilterCondition: (id, updatedCondition) =>
     set((state) => ({
-      conditions: state.conditions.map((c) =>
+      filterConditions: state.filterConditions.map((c) =>
         c.id === id ? updatedCondition : c
       ),
     })),
-  clearFilterConditions: () => set({ conditions: [] }),
+  clearFilterConditions: () => set({ filterConditions: [] }),
 }));
