@@ -86,7 +86,7 @@ export class GoogleService {
      * @throws ApiError
      */
     public static placeView(
-        id: number,
+        id: string,
     ): CancelablePromise<any> {
         return __request(OpenAPI, {
             method: 'GET',
