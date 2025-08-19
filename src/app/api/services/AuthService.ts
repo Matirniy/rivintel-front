@@ -16,7 +16,7 @@ export class AuthService {
      */
     public static login(
         requestBody: AuthLoginRequest,
-    ): CancelablePromise<any> {
+    ): CancelablePromise<> {
         return __request(OpenAPI, {
             method: 'POST',
             url: '/auth/login',
@@ -31,7 +31,7 @@ export class AuthService {
      */
     public static signup(
         requestBody: AuthStoreRequest,
-    ): CancelablePromise<any> {
+    ): CancelablePromise<> {
         return __request(OpenAPI, {
             method: 'POST',
             url: '/auth/signup',
@@ -46,7 +46,7 @@ export class AuthService {
      */
     public static refresh(
         requestBody: AuthRefreshRequest,
-    ): CancelablePromise<any> {
+    ): CancelablePromise<> {
         return __request(OpenAPI, {
             method: 'POST',
             url: '/auth/refresh',
