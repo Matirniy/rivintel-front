@@ -99,7 +99,7 @@ export const getQueryString = (params: Record<string, any>): string => {
 
 const getUrl = (config: OpenAPIConfig, options: ApiRequestOptions): string => {
   const encoder = config.ENCODE_PATH || encodeURI;
-
+  
   const path = options.url
     .replace("{api-version}", config.VERSION)
     .replace(/{(.*?)}/g, (substring: string, group: string) => {
@@ -291,12 +291,7 @@ export const catchErrorCodes = (
   };
 
   const error = errors[result.status];
-
   if (error) {
-    console.dir(options, { depth: null });
-
-    console.dir(result, { depth: null });
-
     throw new ApiError(options, result, error);
   }
 

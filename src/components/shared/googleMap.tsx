@@ -1,12 +1,7 @@
 "use client";
 
-import { useCallback, useMemo, useState } from "react";
-import {
-  GoogleMap,
-  useLoadScript,
-  Marker,
-  Circle,
-} from "@react-google-maps/api";
+import { useCallback, useEffect, useRef, useState } from "react";
+import { GoogleMap, useLoadScript, Marker } from "@react-google-maps/api";
 
 import { useMapSearchStore } from "@/store/map";
 import Loader from "./loader";
@@ -30,10 +25,14 @@ export default function GoogleMapWithRadius() {
 
   const [selectedPosition, setSelectedPosition] =
     useState<google.maps.LatLngLiteral | null>(null);
-  const [radius, setRadius] = useState(1000);
 
   const setLat = useMapSearchStore((state) => state.setLat);
   const setLng = useMapSearchStore((state) => state.setLng);
+  const radius = useMapSearchStore((state) => state.radius);
+  const setRadius = useMapSearchStore((state) => state.setRadius);
+
+  const mapRef = useRef<google.maps.Map | null>(null);
+  const circleRef = useRef<google.maps.Circle | null>(null);
 
   const onMapClick = useCallback(
     (e: google.maps.MapMouseEvent) => {
@@ -49,10 +48,32 @@ export default function GoogleMapWithRadius() {
     [setLat, setLng]
   );
 
-  const mapCenter = useMemo(
-    () => selectedPosition ?? center,
-    [selectedPosition]
-  );
+  useEffect(() => {
+    if (!mapRef.current) return;
+
+    if (selectedPosition) {
+      if (!circleRef.current) {
+        circleRef.current = new google.maps.Circle({
+          map: mapRef.current,
+          center: selectedPosition,
+          radius: radius,
+          fillColor: "#3b82f6",
+          fillOpacity: 0.2,
+          strokeColor: "#3b82f6",
+          strokeOpacity: 0.7,
+          strokeWeight: 2,
+        });
+      } else {
+        circleRef.current.setCenter(selectedPosition);
+        circleRef.current.setRadius(radius);
+      }
+    } else {
+      if (circleRef.current) {
+        circleRef.current.setMap(null);
+        circleRef.current = null;
+      }
+    }
+  }, [selectedPosition, radius]);
 
   if (!isLoaded) return <Loader />;
 
@@ -64,8 +85,8 @@ export default function GoogleMapWithRadius() {
         </label>
         <input
           type="range"
-          min={100}
-          max={10000}
+          min={1000}
+          max={6000}
           step={100}
           value={radius}
           onChange={(e) => setRadius(Number(e.target.value))}
@@ -76,27 +97,15 @@ export default function GoogleMapWithRadius() {
       <div style={{ height: "calc(100% - 64px)" }}>
         <GoogleMap
           mapContainerStyle={containerStyle}
-          center={mapCenter}
-          zoom={2}
+          center={selectedPosition ?? center}
+          zoom={selectedPosition ? 12 : 2}
           options={options}
           onClick={onMapClick}
+          onLoad={(map) => {
+            mapRef.current = map;
+          }}
         >
-          {selectedPosition && (
-            <>
-              <Marker position={selectedPosition} />
-              <Circle
-                center={selectedPosition}
-                radius={radius}
-                options={{
-                  fillColor: "#3b82f6",
-                  fillOpacity: 0.2,
-                  strokeColor: "#3b82f6",
-                  strokeOpacity: 0.7,
-                  strokeWeight: 2,
-                }}
-              />
-            </>
-          )}
+          {selectedPosition && <Marker position={selectedPosition} />}
         </GoogleMap>
       </div>
     </div>
