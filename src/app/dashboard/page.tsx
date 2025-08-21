@@ -8,7 +8,7 @@ export const revalidate = 60;
 
 export default function DashboardPage() {
   return (
-    <div className="px-2 py-4 h-full space-y-4">
+    <div className="px-2 py-4 space-y-4 h-[calc(100vh-112px)] md:h-full">
       <SearchBar />
       <Suspense fallback={<Loader />}>
         <CompanyList />
