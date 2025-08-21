@@ -15,6 +15,8 @@ export class GoogleService {
      * @param radius
      * @param sort Sort method (only one allowed)
      * @param fields
+     * @param page Page number (default 1)
+     * @param limit Items per page (default 20)
      * @returns any
      * @throws ApiError
      */
@@ -27,6 +29,8 @@ export class GoogleService {
         radius?: number,
         sort?: 'rating' | 'rating count' | 'display name',
         fields?: Array<'places.id' | 'places.displayName' | 'places.formattedAddress' | 'places.googleMapsUri' | 'places.internationalPhoneNumber' | 'places.websiteUri' | 'places.rating' | 'places.userRatingCount' | 'places.businessStatus' | 'places.location' | 'places.viewport' | 'places.plusCode' | 'places.types' | 'places.addressComponents' | 'places.regularOpeningHours' | 'places.currentOpeningHours' | 'places.secondaryOpeningHours' | 'places.specialDays' | 'places.utcOffsetMinutes' | 'places.photos' | 'places.reviews' | 'places.priceLevel' | 'places.accessibilityOptions' | 'places.editorialSummary' | 'places.takeout' | 'places.delivery' | 'places.dineIn' | 'places.servesBeer' | 'places.servesBreakfast' | 'places.servesBrunch' | 'places.servesDinner' | 'places.servesLunch' | 'places.servesVegetarianFood' | 'places.servesWine' | 'places.reservable' | 'places.goodForChildren' | 'places.paymentOptions' | 'places.parkingOptions' | 'places.businessName' | 'places.businessContact'>,
+        page?: number,
+        limit?: number,
     ): CancelablePromise<any> {
         return __request(OpenAPI, {
             method: 'GET',
@@ -40,6 +44,8 @@ export class GoogleService {
                 'radius': radius,
                 'sort': sort,
                 'fields': fields,
+                'page': page,
+                'limit': limit,
             },
         });
     }
@@ -52,6 +58,8 @@ export class GoogleService {
      * @param radius
      * @param sort Sort method (only one allowed)
      * @param fields
+     * @param page Page number (default 1)
+     * @param limit Items per page (default 20)
      * @returns any
      * @throws ApiError
      */
@@ -64,6 +72,8 @@ export class GoogleService {
         radius?: number,
         sort?: 'rating' | 'rating count' | 'display name',
         fields?: Array<'places.id' | 'places.displayName' | 'places.formattedAddress' | 'places.googleMapsUri' | 'places.internationalPhoneNumber' | 'places.websiteUri' | 'places.rating' | 'places.userRatingCount' | 'places.businessStatus' | 'places.location' | 'places.viewport' | 'places.plusCode' | 'places.types' | 'places.addressComponents' | 'places.regularOpeningHours' | 'places.currentOpeningHours' | 'places.secondaryOpeningHours' | 'places.specialDays' | 'places.utcOffsetMinutes' | 'places.photos' | 'places.reviews' | 'places.priceLevel' | 'places.accessibilityOptions' | 'places.editorialSummary' | 'places.takeout' | 'places.delivery' | 'places.dineIn' | 'places.servesBeer' | 'places.servesBreakfast' | 'places.servesBrunch' | 'places.servesDinner' | 'places.servesLunch' | 'places.servesVegetarianFood' | 'places.servesWine' | 'places.reservable' | 'places.goodForChildren' | 'places.paymentOptions' | 'places.parkingOptions' | 'places.businessName' | 'places.businessContact'>,
+        page?: number,
+        limit?: number,
     ): CancelablePromise<any> {
         return __request(OpenAPI, {
             method: 'GET',
@@ -77,6 +87,8 @@ export class GoogleService {
                 'radius': radius,
                 'sort': sort,
                 'fields': fields,
+                'page': page,
+                'limit': limit,
             },
         });
     }
