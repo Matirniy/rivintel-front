@@ -16,10 +16,6 @@ export const useAuthStore = create<AuthState>()(
       setUser: (user) => set({ user }),
       logout: async () => {
         set({ user: null });
-
-        if (typeof document !== "undefined") {
-          document.cookie = "accessToken=; path=/; max-age=0";
-        }
       },
     }),
     { name: "auth-user" }

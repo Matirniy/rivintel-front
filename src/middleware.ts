@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
+
 import { isExpired } from "@/lib/auth";
 import { AuthService } from "@/app/api";
 
@@ -31,6 +32,7 @@ export async function middleware(req: NextRequest) {
         path: "/",
         maxAge: 60 * 60 * 24 * 7,
       });
+
       return res;
     } catch (e) {
       console.error("Refresh failed", e);

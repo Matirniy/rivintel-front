@@ -1,9 +1,8 @@
 "use server";
 
 import { GoogleService } from "@/app/api";
-import { PlacesFields, SortOptions } from "@/types/google";
+import { GoogleAnswerType, PlacesFields, SortOptions } from "@/types/google";
 import DEFAULT_FIELDS from "./constant";
-import { CompanyDataProps } from "@/types/company";
 import { FilterCondition } from "@/types/filters.types";
 
 interface TriggerParams {
@@ -13,6 +12,7 @@ interface TriggerParams {
   sortField: SortOptions | null;
   filterConditions: FilterCondition[];
   isSubscribed: boolean;
+  page: number;
 }
 
 export async function triggerGoogleSearch({
@@ -22,6 +22,7 @@ export async function triggerGoogleSearch({
   sortField,
   filterConditions,
   isSubscribed,
+  page,
 }: TriggerParams) {
   const isEmptyWebsite =
     filterConditions.find((c) => c.field === PlacesFields.WEBSITE_URI)?.value ??
@@ -33,7 +34,7 @@ export async function triggerGoogleSearch({
     .filter((f) => f !== PlacesFields.UNSELECTED) as any[];
 
   try {
-    let companies: CompanyDataProps[];
+    let companies: GoogleAnswerType;
 
     if (isSubscribed) {
       companies = await GoogleService.placeList(
@@ -44,7 +45,8 @@ export async function triggerGoogleSearch({
         isEmptySocialWebsite ?? false,
         0,
         sortField ?? SortOptions.NAME,
-        fields.length ? fields : DEFAULT_FIELDS
+        fields.length ? fields : DEFAULT_FIELDS,
+        page
       );
     } else {
       companies = await GoogleService.placeDemoList(
@@ -55,7 +57,8 @@ export async function triggerGoogleSearch({
         isEmptySocialWebsite ?? false,
         0,
         sortField ?? SortOptions.NAME,
-        fields.length ? fields : DEFAULT_FIELDS
+        fields.length ? fields : DEFAULT_FIELDS,
+        page
       );
     }
 

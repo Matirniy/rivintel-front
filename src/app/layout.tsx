@@ -3,9 +3,9 @@ import { Inter } from "next/font/google";
 
 import Header from "@/components/layout/header";
 import Footer from "@/components/layout/footer";
+import { AuthInit } from "@/components/authInit";
 
 import "./globals.css";
-import { AuthInit } from "@/components/authInit";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -31,7 +31,7 @@ export default function RootLayout({
         <div className="flex flex-col h-[100vh]">
           <Header />
 
-          <main className="h-[calc(100%-112px)] bg-base-200">
+          <main className="bg-base-200 h-auto md:h-[calc(100%-112px)]">
             <div className="w-full h-full max-w-screen-xl mx-auto">
               {children}
             </div>

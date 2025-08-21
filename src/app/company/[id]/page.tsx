@@ -6,6 +6,7 @@ import { fetchCompanyById } from "./actions";
 import PlaceClient from "./placeClient";
 import Loader from "@/components/shared/loader";
 import { getDetails } from "./utils";
+import BackButton from "@/components/shared/backButton";
 
 export default async function PlacePage({
   params,
@@ -23,7 +24,10 @@ export default async function PlacePage({
   return (
     <div className="flex flex-col h-[calc(100%-32px)] m-4">
       <div className="flex items-center justify-between border-b pb-2 mb-4">
-        <h1 className="text-2xl font-bold">{place.displayName.text}</h1>
+        <div className="flex items-center gap-3">
+          <BackButton />
+          <h1 className="text-2xl font-bold">{place.displayName.text}</h1>
+        </div>
         <div className="flex items-center text-lg">
           <FaStar /> {place.rating} ({place.userRatingCount})
         </div>
