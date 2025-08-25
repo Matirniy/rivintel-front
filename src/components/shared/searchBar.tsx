@@ -54,11 +54,11 @@ export default function SearchBar() {
   return (
     <div className="w-full max-w-screen-xl mx-auto space-y-4">
       <div className="flex items-center gap-2">
-        <div className="flex items-center w-full rounded-md bg-blue-100 p-2">
+        <div className="flex items-center w-full rounded-md">
           <input
             type="text"
             placeholder="Write type of business keyword"
-            className="input input-bordered w-full rounded-r-none border-blue-300 focus:outline-none"
+            className="input input-bordered w-full rounded-r-none border-blue-200 focus:outline-none focus:border-blue-400"
             value={searchText}
             onChange={(e) => setSearchText(e.target.value)}
           />
