@@ -23,9 +23,10 @@ export default function SearchBar() {
   );
   const { filterConditions, addFilterCondition } = useFiltersStore();
   const { sortField, setSortField } = useSortingStore();
-  const { searchText, lng, lat, setSearchText } = useMapSearchStore();
+  const { searchText, lng, lat, radius, setSearchText } = useMapSearchStore();
 
   const closeModal = () => setModalType(null);
+
   const isDashboard = pathname === "/dashboard";
 
   function startSearch() {
@@ -34,6 +35,7 @@ export default function SearchBar() {
     if (searchText.trim()) params.set("searchtext", searchText.trim());
     if (lat !== null) params.set("lat", lat.toString());
     if (lng !== null) params.set("lng", lng.toString());
+    if (radius) params.set("radius", radius.toString());
     if (sortField) params.set("sort", sortField);
 
     if (filterConditions.length > 1) {
@@ -52,11 +54,11 @@ export default function SearchBar() {
   return (
     <div className="w-full max-w-screen-xl mx-auto space-y-4">
       <div className="flex items-center gap-2">
-        <div className="flex items-center w-full rounded-md bg-blue-100 p-2">
+        <div className="flex items-center w-full rounded-md">
           <input
             type="text"
             placeholder="Write type of business keyword"
-            className="input input-bordered w-full rounded-r-none border-blue-300 focus:outline-none"
+            className="input input-bordered w-full rounded-r-none border-blue-200 focus:outline-none focus:border-blue-400"
             value={searchText}
             onChange={(e) => setSearchText(e.target.value)}
           />
