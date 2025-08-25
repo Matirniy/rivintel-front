@@ -23,9 +23,10 @@ export default function SearchBar() {
   );
   const { filterConditions, addFilterCondition } = useFiltersStore();
   const { sortField, setSortField } = useSortingStore();
-  const { searchText, lng, lat, setSearchText } = useMapSearchStore();
+  const { searchText, lng, lat, radius, setSearchText } = useMapSearchStore();
 
   const closeModal = () => setModalType(null);
+
   const isDashboard = pathname === "/dashboard";
 
   function startSearch() {
@@ -34,6 +35,7 @@ export default function SearchBar() {
     if (searchText.trim()) params.set("searchtext", searchText.trim());
     if (lat !== null) params.set("lat", lat.toString());
     if (lng !== null) params.set("lng", lng.toString());
+    if (radius) params.set("radius", radius.toString());
     if (sortField) params.set("sort", sortField);
 
     if (filterConditions.length > 1) {

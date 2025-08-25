@@ -9,6 +9,7 @@ interface TriggerParams {
   searchText: string;
   lat: number;
   lng: number;
+  radius: number;
   sortField: SortOptions | null;
   filterConditions: FilterCondition[];
   isSubscribed: boolean;
@@ -19,6 +20,7 @@ export async function triggerGoogleSearch({
   searchText,
   lat,
   lng,
+  radius,
   sortField,
   filterConditions,
   isSubscribed,
@@ -28,14 +30,14 @@ export async function triggerGoogleSearch({
     filterConditions.find((c) => c.field === PlacesFields.WEBSITE_URI)?.value ??
     undefined;
   const isEmptySocialWebsite = true;
-
+  
   const fields = filterConditions
     .map((c) => c.field)
     .filter((f) => f !== PlacesFields.UNSELECTED) as any[];
 
   try {
     let companies: GoogleAnswerType;
-
+    
     if (isSubscribed) {
       companies = await GoogleService.placeList(
         searchText,
@@ -43,7 +45,7 @@ export async function triggerGoogleSearch({
         lng.toString(),
         isEmptyWebsite ?? false,
         isEmptySocialWebsite ?? false,
-        0,
+        radius,
         sortField ?? SortOptions.NAME,
         fields.length ? fields : DEFAULT_FIELDS,
         page
@@ -55,7 +57,7 @@ export async function triggerGoogleSearch({
         lng.toString(),
         isEmptyWebsite ?? false,
         isEmptySocialWebsite ?? false,
-        0,
+        radius,
         sortField ?? SortOptions.NAME,
         fields.length ? fields : DEFAULT_FIELDS,
         page

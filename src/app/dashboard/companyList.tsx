@@ -23,9 +23,11 @@ export default function CompanyList() {
   const {
     lat: stateLat,
     lng: stateLng,
+    radius: stateRadius,
     searchText: stateSearchText,
     setLat,
     setLng,
+    setRadius,
     setSearchText,
   } = useMapSearchStore();
 
@@ -33,23 +35,27 @@ export default function CompanyList() {
   const [total, setTotal] = useState(0);
   const [page, setPage] = useState(1);
   const [isLoading, setIsLoading] = useState(false);
-  const { user } = useAuthStore();
+  const { user, hydrated } = useAuthStore();
   const isSubscribed = !!user?.isSubscription;
 
   const didFirstFetch = useRef(false);
   const containerRef = useRef<HTMLDivElement>(null);
 
-  const fetchCompanies = async (currentPage: number) => {
-    if (isLoading) return;
+  const fetchCompanies = async (currentPage: number, firstLoading: boolean) => {
+    if (isLoading || !hydrated) return;
 
-    setIsLoading(true);
+    if (firstLoading) {
+      setIsLoading(true);
+    }
 
     let lat = stateLat;
     let lng = stateLng;
     let searchText = stateSearchText;
+    let radius = stateRadius;
 
     const queryLat = parseFloat(searchParams.get("lat") || "");
     const queryLng = parseFloat(searchParams.get("lng") || "");
+    const queryRadius = parseFloat(searchParams.get("radius") || "");
     const querySearchText = searchParams.get("searchtext");
 
     if (!lat && !isNaN(queryLat)) {
@@ -60,6 +66,11 @@ export default function CompanyList() {
     if (!lng && !isNaN(queryLng)) {
       lng = queryLng;
       setLng(queryLng);
+    }
+
+    if (!radius && !isNaN(queryRadius)) {
+      radius = queryRadius;
+      setRadius(queryRadius);
     }
 
     if (!searchText && querySearchText) {
@@ -76,6 +87,7 @@ export default function CompanyList() {
       searchText,
       lat,
       lng,
+      radius,
       sortField,
       filterConditions,
       isSubscribed,
@@ -84,52 +96,60 @@ export default function CompanyList() {
 
     if (response) {
       setTotal(response.total);
-      setCompanies((prev) => [...prev, ...response.data]);
+      setCompanies((prev) =>
+        currentPage === 1 ? response.data : [...prev, ...response.data]
+      );
     }
 
     setIsLoading(false);
   };
 
   useEffect(() => {
-    if (didFirstFetch.current) return;
+    if (didFirstFetch.current || !hydrated) return;
 
     didFirstFetch.current = true;
-
     setCompanies([]);
     setPage(1);
-    fetchCompanies(1);
-  }, [stateLng, stateSearchText, sortField, filterConditions]);
+    fetchCompanies(1, true);
+  }, [
+    hydrated,
+    stateLng,
+    stateSearchText,
+    stateRadius,
+    sortField,
+    filterConditions,
+  ]);
 
   useEffect(() => {
-    if (isSubscribed) {
-      const handleScroll = () => {
-        const container = containerRef.current;
+    if (page === 1 || !hydrated) return;
 
-        if (!container || isLoading || page * 20 >= total) return;
+    fetchCompanies(page, false);
+  }, [page, hydrated]);
 
-        const scrollPosition = container.scrollTop + container.clientHeight;
-        const threshold = container.scrollHeight * 0.7;
+  useEffect(() => {
+    if (!isSubscribed || !hydrated) return;
 
-        if (scrollPosition >= threshold) {
-          setPage((prevPage) => {
-            const nextPage = prevPage + 1;
-
-            fetchCompanies(nextPage);
-
-            return nextPage;
-          });
-        }
-      };
-
+    const handleScroll = () => {
       const container = containerRef.current;
 
-      container?.addEventListener("scroll", handleScroll);
+      if (!container || isLoading || page * 20 >= total) return;
 
-      return () => {
-        container?.removeEventListener("scroll", handleScroll);
-      };
-    }
-  }, [isLoading]);
+      const scrollPosition = container.scrollTop + container.clientHeight;
+      const threshold = container.scrollHeight * 0.7;
+
+      if (scrollPosition >= threshold) {
+        setPage((prevPage) => prevPage + 1);
+      }
+    };
+
+    const container = containerRef.current;
+
+    container?.addEventListener("scroll", handleScroll);
+
+    return () => {
+      container?.removeEventListener("scroll", handleScroll);
+    };
+  }, [hydrated, total, isSubscribed, isLoading, page]);
 
   const openCompany = (id: string, isLocked: boolean) => {
     if (!isLocked) router.push(`/company/${id}`);
@@ -165,7 +185,7 @@ export default function CompanyList() {
           );
         })}
 
-        {isLoading && (
+        {(isLoading || !hydrated) && (
           <div className="flex justify-center py-4">
             <Loader />
           </div>

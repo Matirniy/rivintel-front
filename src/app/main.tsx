@@ -1,6 +1,9 @@
 "use client";
 
+import { Suspense } from "react";
+
 import GoogleMap from "@/components/shared/googleMap";
+import Loader from "@/components/shared/loader";
 import SearchBar from "@/components/shared/searchBar";
 
 export default function Main() {
@@ -9,7 +12,9 @@ export default function Main() {
       <SearchBar />
 
       <div className="w-full h-[calc(100%-70px)] rounded-md overflow-hidden">
-        <GoogleMap />
+        <Suspense fallback={<Loader />}>
+          <GoogleMap />
+        </Suspense>
       </div>
     </div>
   );
