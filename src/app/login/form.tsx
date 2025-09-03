@@ -4,11 +4,11 @@ import Link from "next/link";
 import { useActionState, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 
-import type { login } from "./actions";
+import type { signIn } from "./actions";
 import { useAuthStore } from "@/store/auth";
 import { LoadingButton } from "@/components/shared/loadingButton";
 
-export default function LoginForm({ action }: { action: typeof login }) {
+export default function LoginForm({ action }: { action: typeof signIn }) {
   const [state, formAction, isPending] = useActionState(action, { message: "" });
   const setUser = useAuthStore((s) => s.setUser);
   const router = useRouter();

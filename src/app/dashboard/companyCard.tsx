@@ -63,7 +63,7 @@ export default function CompanyCard({
               rel="noopener noreferrer"
               className="text-primary underline"
             >
-              {websiteUri.replace(/^https?:\/\//, "")}
+              link
             </a>
           ) : (
             <p>-</p>

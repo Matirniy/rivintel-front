@@ -1,7 +1,9 @@
 "use server";
 
-import { GoogleService } from "@/app/api";
+import { placeView } from "@/app/api";
 
 export async function fetchCompanyById(id: string) {
-  return await GoogleService.placeView(id);
+  return (await placeView({
+    path: { id },
+  })).data;
 }
