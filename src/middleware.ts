@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 
 import { isExpired } from "@/lib/auth";
-import { AuthService } from "@/app/api";
+import { refresh } from "./app/api/gen";
 
 export async function middleware(req: NextRequest) {
   const accessToken = req.cookies.get("accessToken")?.value;
@@ -13,11 +13,16 @@ export async function middleware(req: NextRequest) {
     if (!refreshToken || refreshToken.trim() === "") return NextResponse.next();
 
     try {
-      const { data } = await AuthService.refresh({ refreshToken });
+      const { data } = await refresh({
+        body: { refreshToken },
+      });
+
+      const { accessToken: newAccessToken, refreshToken: newRefreshToken } =
+        data;
 
       const res = NextResponse.next();
 
-      res.cookies.set("accessToken", data.accessToken, {
+      res.cookies.set("accessToken", newAccessToken, {
         httpOnly: true,
         secure: true,
         sameSite: "strict",
@@ -25,7 +30,7 @@ export async function middleware(req: NextRequest) {
         maxAge: 60 * 60,
       });
 
-      res.cookies.set("refreshToken", data.refreshToken, {
+      res.cookies.set("refreshToken", newRefreshToken, {
         httpOnly: true,
         secure: true,
         sameSite: "strict",
@@ -36,6 +41,7 @@ export async function middleware(req: NextRequest) {
       return res;
     } catch (e) {
       console.error("Refresh failed", e);
+
       return NextResponse.next();
     }
   }

@@ -1,10 +1,12 @@
 "use client";
 
 import { XMarkIcon } from "@heroicons/react/24/outline";
+
 import FilterEditor from "./filterEditor";
 import GoogleMap from "../shared/googleMap";
 import SortEditor from "./sortEditor";
 import type { SearchModalProps } from "@/types/searchModal.types";
+import Analytics from "./analytics";
 
 export default function SearchModal({
   modalType,
@@ -50,8 +52,10 @@ export default function SearchModal({
         {modalType === "sort" && (
           <SortEditor sortField={sortField} setSortField={setSortField} />
         )}
-        
+
         {modalType === "map" && <GoogleMap />}
+
+        {modalType === "ai" && <Analytics isSubscribed />}
       </div>
     </div>
   );

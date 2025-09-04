@@ -5,4 +5,5 @@ export default interface ActionButtonProps
   icon: ReactNode;
   label: string;
   count?: number;
+  isLoading?: boolean;
 }

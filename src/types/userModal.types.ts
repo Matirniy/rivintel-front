@@ -1,6 +1,6 @@
 import type { Dispatch, SetStateAction } from "react";
 
-import { Users } from "@/app/api";
+import { Users } from "@/app/api/gen";
 
 export interface UserModalProps {
   setOpen: Dispatch<SetStateAction<boolean>>;

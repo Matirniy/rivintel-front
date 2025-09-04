@@ -1,8 +1,7 @@
 "use server";
 
+import { refresh } from "@/app/api/gen";
 import { cookies } from "next/headers";
-
-import { AuthService } from "@/app/api";
 
 export async function triggerAuthRefresh() {
   try {
@@ -13,7 +12,9 @@ export async function triggerAuthRefresh() {
       return null;
     }
 
-    return await AuthService.refresh({ refreshToken });
+    return await refresh({
+      body: { refreshToken },
+    });
   } catch (error) {
     console.error("Auth refresh failed", error);
     return null;

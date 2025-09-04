@@ -27,7 +27,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <AuthInit />
+      {/* <AuthInit /> */}
       <body className={inter.className}>
         <div className="flex flex-col h-[100vh]">
           <Header />
