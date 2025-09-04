@@ -1,6 +1,6 @@
 "use server";
 
-import { refresh } from "@/app/api";
+import { refresh } from "@/app/api/gen";
 import { cookies } from "next/headers";
 
 export async function triggerAuthRefresh() {

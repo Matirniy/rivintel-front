@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 
 import { isExpired } from "@/lib/auth";
-import { refresh } from "./app/api";
+import { refresh } from "./app/api/gen";
 
 export async function middleware(req: NextRequest) {
   const accessToken = req.cookies.get("accessToken")?.value;

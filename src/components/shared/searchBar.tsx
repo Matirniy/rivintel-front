@@ -102,14 +102,14 @@ export default function SearchBar() {
           onClick={() => setModalType("filters")}
         />
 
-        {isDashboard && (
+        {/* {isDashboard && (
           <ActionButton
             count={0}
             icon={<BoltIcon className="w-5 h-5" />}
             label="AI Analytics"
             onClick={() => setModalType("ai")}
           />
-        )}
+        )} */}
 
         {isDashboard && (
           <ActionButton

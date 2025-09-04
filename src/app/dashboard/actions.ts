@@ -3,9 +3,7 @@
 import { GoogleAnswerType, PlacesFields, SortOptions } from "@/types/google";
 import DEFAULT_FIELDS from "./constant";
 import { FilterCondition } from "@/types/filters.types";
-import { downloadExcel, placeAnalyze, placeDemoList, placeList } from "../api";
-import { client } from "@/lib/hey-api";
-import axios from "axios";
+import { downloadExcel, placeAnalyze, placeDemoList, placeList } from "../api/gen";
 
 interface TriggerGoogleParams {
   searchText: string;

@@ -2,7 +2,6 @@
 
 import { cookies } from "next/headers";
 
-import { AuthService } from "@/app/api";
 import { signupSchema } from "@/types/auth";
 
 export async function signup(prevState: any, formData: FormData) {
@@ -20,9 +19,11 @@ export async function signup(prevState: any, formData: FormData) {
   }
 
   try {
-    const res = await AuthService.signup(result.data);
+    const { data } = await signup({
+      body: result.data,
+    });
 
-    const { accessToken, user } = res?.data;
+    const { accessToken, user } = data;
 
     if (!accessToken) {
       return { message: "No token received" };
