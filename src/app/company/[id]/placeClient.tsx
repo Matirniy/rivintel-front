@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import MapWrapper from "@/components/shared/mapWrapper";
-import { CompanyDataProps } from "@/types/company";
+import { CompanyDataProps } from "@/types/company.type";
 import { getPhotoUrl } from "./utils";
 
 interface Props {

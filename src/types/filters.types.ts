@@ -1,4 +1,4 @@
-import { PlacesFields } from "./google";
+import { PlacesFields } from "./google.types";
 
 export interface FilterCondition {
   id: number;

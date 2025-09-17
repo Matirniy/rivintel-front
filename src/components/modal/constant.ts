@@ -1,4 +1,4 @@
-import { PlacesFields } from "@/types/google";
+import { PlacesFields } from "@/types/google.types";
 
 export const PlaceFieldLabels: Record<PlacesFields, string> = {
   [PlacesFields.UNSELECTED]: "-- select field --",

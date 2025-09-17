@@ -81,7 +81,7 @@ export default function SearchBar() {
           <input
             type="text"
             placeholder="Write type of business keyword"
-            className="input input-bordered w-full rounded-r-none border-blue-200 focus:outline-none focus:border-blue-400"
+            className="input input-bordered w-full rounded-r-none border-primary focus:outline-none focus:border-blue-900"
             value={searchText}
             onChange={(e) => setSearchText(e.target.value)}
           />

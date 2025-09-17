@@ -32,7 +32,7 @@ export default function UserModal({ setOpen, user, logout }: UserModalProps) {
 
               <p className="text-sm">
                 Subscription:{" "}
-                {user.isSubscription ? (
+                {user.isSubscribed ? (
                   <span className="text-green-600 font-semibold">Active</span>
                 ) : (
                   <span className="text-red-500 font-semibold">Not Active</span>

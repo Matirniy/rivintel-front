@@ -2,16 +2,22 @@
 
 import { cookies } from "next/headers";
 import { loginSchema } from "@/types/auth";
-import { login } from "../api/gen";
+import { login, type Users } from "../api/gen";
 
-export async function signIn(prevState: any, formData: FormData) {
+type SignInResult =
+  | { message: "login"; user: Users }
+  | { message: "Validation failed" | "Invalid credentials" | "" };
+
+export async function signIn(
+  prevState: unknown,
+  formData: FormData
+): Promise<SignInResult> {
   const data = {
     email: formData.get("email")?.toString() || "",
     password: formData.get("password")?.toString() || "",
   };
 
   const result = loginSchema.safeParse(data);
-
   if (!result.success) {
     return { message: "Validation failed" };
   }
@@ -21,7 +27,11 @@ export async function signIn(prevState: any, formData: FormData) {
       body: result.data,
     });
 
-    const { accessToken, refreshToken, user } = data;
+    const { accessToken, refreshToken, user } = data as {
+      accessToken: string;
+      refreshToken: string;
+      user: Users;
+    };
 
     const cookieStore = await cookies();
 
@@ -48,7 +58,6 @@ export async function signIn(prevState: any, formData: FormData) {
     return { message: "login", user };
   } catch (err: any) {
     console.error("Login error:", err?.response?.data || err.message);
-
     return { message: "Invalid credentials" };
   }
 }

@@ -1,6 +1,6 @@
 "use client";
 
-import { PlacesFields, SortOptions } from "@/types/google";
+import { PlacesFields, SortOptions } from "@/types/google.types";
 import { SortEditorProps } from "@/types/sortEditor.types";
 
 export default function SortEditor({

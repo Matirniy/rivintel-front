@@ -7,7 +7,22 @@ export type Users = {
     email: string;
     password: string;
     isConfirmEmail: boolean;
-    isSubscription: boolean;
+    isSubscribed: boolean;
+    paddleCustomerId: {
+        [key: string]: unknown;
+    };
+    paddleSubscriptionId: {
+        [key: string]: unknown;
+    };
+    subscriptionStatus: {
+        [key: string]: unknown;
+    };
+    subscriptionPlan: {
+        [key: string]: unknown;
+    };
+    subscriptionNextBillDate: {
+        [key: string]: unknown;
+    };
     createdAt: string;
     updatedAt: string;
 };
@@ -32,6 +47,20 @@ export type AuthStoreRequest = {
 
 export type AuthRefreshRequest = {
     refreshToken: string;
+};
+
+export type PaymentDto = {
+    priceId: string;
+};
+
+export type PaymentWebhookDto = {
+    alertName: string;
+    pSignature: string;
+    subscriptionId: string;
+    userId: string;
+    email: string;
+    planName: string;
+    nextBillDate: string;
 };
 
 export type PlaceListData = {
@@ -228,35 +257,29 @@ export type RefreshResponses = {
 
 export type RefreshResponse = RefreshResponses[keyof RefreshResponses];
 
-export type PlaceAnalyzeData = {
-    body?: never;
+export type PaymentData = {
+    body: PaymentDto;
     path?: never;
-    query: {
-        searchText: string;
-        lat: string;
-        lng: string;
-        radius?: number;
-        isEmptyWebsite?: boolean;
-        isEmptySocialWebsite?: boolean;
-        /**
-         * Sort method (only one allowed)
-         */
-        sort?: 'rating' | 'rating count' | 'display name';
-        fields?: Array<'places.id' | 'places.displayName' | 'places.formattedAddress' | 'places.googleMapsUri' | 'places.internationalPhoneNumber' | 'places.websiteUri' | 'places.rating' | 'places.userRatingCount' | 'places.businessStatus' | 'places.location' | 'places.viewport' | 'places.plusCode' | 'places.types' | 'places.addressComponents' | 'places.regularOpeningHours' | 'places.currentOpeningHours' | 'places.utcOffsetMinutes' | 'places.photos' | 'places.reviews' | 'places.priceLevel' | 'places.accessibilityOptions' | 'places.editorialSummary' | 'places.takeout' | 'places.delivery' | 'places.dineIn' | 'places.servesBeer' | 'places.servesBreakfast' | 'places.servesBrunch' | 'places.servesDinner' | 'places.servesLunch' | 'places.servesVegetarianFood' | 'places.servesWine' | 'places.reservable' | 'places.goodForChildren' | 'places.paymentOptions' | 'places.parkingOptions'>;
-        /**
-         * Page number (default 1)
-         */
-        page?: number;
-        /**
-         * Items per page (default 20)
-         */
-        limit?: number;
-    };
-    url: '/huggingface';
+    query?: never;
+    url: '/payment';
 };
 
-export type PlaceAnalyzeResponses = {
-    200: unknown;
+export type PaymentResponses = {
+    201: unknown;
+};
+
+export type SubscriptionStatusData = {
+    body: PaymentWebhookDto;
+    headers: {
+        'paddle-signature': string;
+    };
+    path?: never;
+    query?: never;
+    url: '/payment/subscription';
+};
+
+export type SubscriptionStatusResponses = {
+    201: unknown;
 };
 
 export type ClientOptions = {

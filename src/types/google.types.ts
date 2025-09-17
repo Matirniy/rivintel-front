@@ -1,4 +1,4 @@
-import { CompanyDataProps } from "./company";
+import { CompanyDataProps } from "./company.type";
 
 export enum SortOptions {
   RATING = "rating",

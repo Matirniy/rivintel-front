@@ -1,4 +1,4 @@
-import { CompanyDataProps } from "@/types/company";
+import { CompanyDataProps } from "@/types/company.type";
 import {
   FaStar,
   FaPhone,

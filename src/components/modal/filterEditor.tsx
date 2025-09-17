@@ -3,7 +3,7 @@
 import React from "react";
 
 import FilterCondition from "./filterCondition";
-import { PlacesFields } from "@/types/google";
+import { PlacesFields } from "@/types/google.types";
 import { FilterEditorProps } from "@/types/filterEditor.types";
 
 export default function FilterEditor({

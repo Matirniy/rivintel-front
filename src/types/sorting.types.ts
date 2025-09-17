@@ -1,4 +1,4 @@
-import { SortOptions } from "./google";
+import { SortOptions } from "./google.types";
 
 export default interface SortingState {
   sortField: SortOptions | null;

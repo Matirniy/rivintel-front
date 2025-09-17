@@ -23,7 +23,12 @@ export default function SignupForm({ action }: { action: typeof signup }) {
   useEffect(() => {
     if (state.message === "signup" && state.user) {
       setUser(state.user);
-      router.push("/payment");
+
+      if (state.user.isSubscribed) {
+        router.push("/dashboard");
+      } else {
+        router.push("/payment");
+      }
     }
   }, [state, setUser, router]);
 
@@ -38,7 +43,7 @@ export default function SignupForm({ action }: { action: typeof signup }) {
       }}
       className="card bg-base-100 shadow-2xl p-6 space-y-4 w-80"
     >
-      <h2 className="text-xl font-semibold text-center">Sign Up</h2>
+      <h2 className="text-2xl font-bold text-center">Sign Up</h2>
 
       <input
         name="name"
