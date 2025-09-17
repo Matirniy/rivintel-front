@@ -9,8 +9,10 @@ import { useAuthStore } from "@/store/auth";
 import { LoadingButton } from "@/components/shared/loadingButton";
 
 export default function LoginForm({ action }: { action: typeof signIn }) {
-  const [state, formAction, isPending] = useActionState(action, { message: "" });
-  const setUser = useAuthStore((s) => s.setUser);
+  const [state, formAction, isPending] = useActionState(action, {
+    message: "",
+  });
+  const setUser = useAuthStore((store) => store.setUser);
   const router = useRouter();
 
   const [email, setEmail] = useState("");
@@ -19,7 +21,12 @@ export default function LoginForm({ action }: { action: typeof signIn }) {
   useEffect(() => {
     if (state.message === "login" && state.user) {
       setUser(state.user);
-      router.push("/dashboard");
+
+      if (state.user.isSubscribed) {
+        router.push("/dashboard");
+      } else {
+        router.push("/payment");
+      }
     }
   }, [state, setUser, router]);
 
@@ -28,11 +35,12 @@ export default function LoginForm({ action }: { action: typeof signIn }) {
       action={(formData) => {
         setEmail(formData.get("email")?.toString() || "");
         setPassword(formData.get("password")?.toString() || "");
+
         return formAction(formData);
       }}
       className="card bg-base-100 shadow-2xl p-6 space-y-4 w-80"
     >
-      <h2 className="text-xl font-semibold text-center">Login</h2>
+      <h2 className="text-2xl font-bold text-center">Login</h2>
 
       <input
         name="email"

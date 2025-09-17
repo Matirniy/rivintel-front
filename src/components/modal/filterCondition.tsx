@@ -3,7 +3,7 @@
 import React from "react";
 
 import { useFiltersStore } from "@/store/filters";
-import { PlacesFields } from "@/types/google";
+import { PlacesFields } from "@/types/google.types";
 import { PlaceFieldLabels } from "./constant";
 import { XMarkIcon } from "@heroicons/react/24/outline";
 

@@ -1,15 +1,14 @@
 "use client";
 
+import { Users } from "@/app/api/gen";
 import { useRouter } from "next/navigation";
-// import { useSession } from "next-auth/react";
 
-const SubscriptionButton = () => {
+const SubscriptionButton = ({ user }: { user: Users | null }) => {
   const router = useRouter();
-  // const { data: session } = useSession();
 
   const handleClick = () => {
-    if (true) {
-      router.push("/subscription");
+    if (user?.id) {
+      router.push("/payment");
     } else {
       router.push("/signup");
     }
@@ -20,7 +19,7 @@ const SubscriptionButton = () => {
       className="btn btn-primary hover:brightness-115 transition duration-200 pointer-events-auto"
       onClick={handleClick}
     >
-      Buy subscription for full info
+      Buy subscription for full information
     </button>
   );
 };

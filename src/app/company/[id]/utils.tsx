@@ -1,6 +1,6 @@
 import React from "react";
 
-import { PlaceFields } from "@/types/google";
+import { PlaceFields } from "@/types/google.types";
 
 const fieldLabels: Record<string, string> = {
   [PlaceFields.Id]: "ID",

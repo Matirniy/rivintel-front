@@ -1,6 +1,6 @@
 import { create } from "zustand";
 
-import { PlacesFields } from "@/types/google";
+import { PlacesFields } from "@/types/google.types";
 import { FiltersState } from "@/types/filters.types";
 
 export const useFiltersStore = create<FiltersState>((set) => ({

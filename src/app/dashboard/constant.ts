@@ -1,4 +1,4 @@
-import { PlacesFields } from "@/types/google";
+import { PlacesFields } from "@/types/google.types";
 
 const DEFAULT_FIELDS: PlacesFields[] = [
   PlacesFields.ID,

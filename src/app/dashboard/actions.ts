@@ -1,27 +1,20 @@
 "use server";
 
-import { GoogleAnswerType, PlacesFields, SortOptions } from "@/types/google";
+import {
+  GoogleAnswerType,
+  PlacesFields,
+  SortOptions,
+} from "@/types/google.types";
 import DEFAULT_FIELDS from "./constant";
-import { FilterCondition } from "@/types/filters.types";
-import { downloadExcel, placeAnalyze, placeDemoList, placeList } from "../api/gen";
-
-interface TriggerGoogleParams {
-  searchText: string;
-  lat: number;
-  lng: number;
-  radius: number;
-  sortField: SortOptions | null;
-  filterConditions: FilterCondition[];
-  isSubscribed: boolean;
-  page: number;
-}
-
-interface TriggerAnalyzeParams {
-  searchText: string;
-  lat: number;
-  lng: number;
-  radius: number;
-}
+import {
+  downloadExcel,
+  placeDemoList,
+  placeList,
+} from "../api/gen";
+import {
+  TriggerGoogleParams,
+  TriggerAnalyzeParams,
+} from "@/types/dashboard.types";
 
 export async function triggerGoogleSearch({
   searchText,
@@ -83,7 +76,7 @@ export async function triggerAnalytic({
       lng: lng.toString(),
       radius,
     };
-    return await placeAnalyze({ query });
+    // return await placeAnalyze({ query });
   } catch (error) {
     console.error("Analytics error:", error);
     return null;
@@ -105,7 +98,7 @@ export async function triggerExcel({
     };
 
     const { data } = await downloadExcel({ query });
-    
+
     const blob = new Blob([data as File], {
       type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
     });

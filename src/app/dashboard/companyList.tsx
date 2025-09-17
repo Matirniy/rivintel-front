@@ -11,8 +11,8 @@ import { triggerGoogleSearch } from "./actions";
 import { useMapSearchStore } from "@/store/map";
 import Loader from "@/components/shared/loader";
 import { useAuthStore } from "@/store/auth";
-import { CompanyDataProps } from "@/types/company";
-import { GoogleAnswerType } from "@/types/google";
+import { CompanyDataProps } from "@/types/company.type";
+import { GoogleAnswerType } from "@/types/google.types";
 
 export default function CompanyList() {
   const router = useRouter();
@@ -36,7 +36,7 @@ export default function CompanyList() {
   const [page, setPage] = useState(1);
   const [isLoading, setIsLoading] = useState(false);
   const { user, hydrated } = useAuthStore();
-  const isSubscribed = !!user?.isSubscription;
+  const isSubscribed = user?.isSubscribed;
 
   const didFirstFetch = useRef(false);
   const containerRef = useRef<HTMLDivElement>(null);
@@ -178,7 +178,7 @@ export default function CompanyList() {
 
               {isLocked && (
                 <div className="absolute inset-x-0 top-11 flex items-center justify-center rounded pointer-events-auto">
-                  <SubscriptionButton />
+                  <SubscriptionButton user={user} />
                 </div>
               )}
             </div>
