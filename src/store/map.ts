@@ -15,7 +15,7 @@ export const useMapSearchStore = create<MapSearchState>((set) => ({
   lng: null,
   lat: null,
   searchText: "",
-  radius: 0,
+  radius: 100,
   setLng: (lng) => set({ lng }),
   setLat: (lat) => set({ lat }),
   setSearchText: (text) => set({ searchText: text }),

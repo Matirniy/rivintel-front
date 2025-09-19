@@ -6,7 +6,7 @@ import { refresh } from "./app/api/gen";
 
 export async function middleware(req: NextRequest) {
   const accessToken = req.cookies.get("accessToken")?.value;
-
+  
   if (!accessToken || accessToken.trim() === "" || isExpired(accessToken)) {
     const refreshToken = req.cookies.get("refreshToken")?.value;
 

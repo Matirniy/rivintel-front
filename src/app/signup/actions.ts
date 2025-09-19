@@ -3,8 +3,9 @@
 import { cookies } from "next/headers";
 
 import { signupSchema } from "@/types/auth";
+import { signup } from "../api/gen";
 
-export async function signup(prevState: any, formData: FormData) {
+export async function register(prevState: any, formData: FormData) {
   const data = {
     name: formData.get("name")?.toString(),
     userName: formData.get("userName")?.toString(),

@@ -15,7 +15,6 @@ export default function ProSubscriptionCard() {
   const router = useRouter();
   const { user, hydrated } = useAuthStore();
   const [paddle, setPaddle] = useState<Paddle | null>(null);
-  const [isPending, startTransition] = useTransition();
   const priceId = process.env.NEXT_PUBLIC_BASIC_PRICE_ID;
 
   useEffect(() => {
@@ -35,7 +34,7 @@ export default function ProSubscriptionCard() {
         environment: process.env.NEXT_PUBLIC_PADDLE_ENV as Environments,
         checkout: {
           settings: {
-            successUrl: "/checkout/success",
+            successUrl: "/payment/success",
           },
         },
       }).then((paddle) => {
@@ -47,16 +46,17 @@ export default function ProSubscriptionCard() {
   const handleCheckout = () => {
     if (!paddle || !priceId) return;
 
-    startTransition(() => {
-      paddle.Checkout.open({
-        items: [{ priceId, quantity: 1 }],
-        ...(user?.email && { customer: { email: user.email } }),
-      });
+    paddle.Checkout.open({
+      items: [{ priceId, quantity: 1 }],
+      customData: {
+        userId: user?.id,
+      },
+      ...(user?.email && { customer: { email: user.email } }),
     });
   };
 
   return (
-    <div className="flex items-center justify-center h-full bg-blue-50">
+    <div className="flex items-center justify-center h-[calc(100vh-112px)] md:h-full">
       <div className="card w-80 bg-gradient-to-b from-blue-700 to-blue-900 text-white shadow-xl rounded-xl p-6 relative">
         <div className="flex items-center mb-4">
           <div className="w-10 h-10 flex items-center justify-center bg-blue-600 rounded-full mr-3">
@@ -153,11 +153,7 @@ export default function ProSubscriptionCard() {
           </li>
         </ul>
 
-        <LoadingButton
-          onClick={handleCheckout}
-          isLoading={isPending}
-          className="w-full"
-        >
+        <LoadingButton onClick={handleCheckout} className="w-full">
           Subscribe
         </LoadingButton>
       </div>

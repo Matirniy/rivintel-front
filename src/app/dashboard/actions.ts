@@ -6,11 +6,7 @@ import {
   SortOptions,
 } from "@/types/google.types";
 import DEFAULT_FIELDS from "./constant";
-import {
-  downloadExcel,
-  placeDemoList,
-  placeList,
-} from "../api/gen";
+import { downloadExcel, placeDemoList, placeList } from "../api/gen";
 import {
   TriggerGoogleParams,
   TriggerAnalyzeParams,
@@ -48,6 +44,7 @@ export async function triggerGoogleSearch({
       sort: sortField ?? SortOptions.NAME,
       fields: fields.length ? fields : DEFAULT_FIELDS,
       page,
+      limit: 20,
     };
 
     if (isSubscribed) {
