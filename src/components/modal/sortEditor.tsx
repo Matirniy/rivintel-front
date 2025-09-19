@@ -8,7 +8,7 @@ export default function SortEditor({
   setSortField,
 }: React.PropsWithChildren<SortEditorProps>) {
   return (
-    <div className="flex flex-col space-y-4">
+    <div className="flex flex-col space-y-4 h-[calc(100%-90px)]">
       <h5 className="font-semibold">Sort by field:</h5>
       <select
         className="select select-bordered w-full cursor-pointer focus:outline-none focus:ring-0"

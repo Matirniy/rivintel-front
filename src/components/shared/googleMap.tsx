@@ -30,13 +30,16 @@ export default function GoogleMapWithRadius() {
   const isDashboard = pathname === "/dashboard";
 
   const updateQuery = (updates: Record<string, string | null>) => {
-    if (!isDashboard) return; // меняем query только на /dashboard
+    if (!isDashboard) return;
+
     const params = new URLSearchParams(searchParams.toString());
+
     for (const key in updates) {
       const value = updates[key];
       if (value === null) params.delete(key);
       else params.set(key, value);
     }
+
     router.replace(`?${params.toString()}`, { scroll: false });
   };
 
@@ -128,17 +131,17 @@ export default function GoogleMapWithRadius() {
   if (!isLoaded) return <Loader />;
 
   return (
-    <div className="w-full h-[calc(100%-45px)]">
+    <div className="w-full h-[calc(100%-90px)]">
       <div className="mb-4">
         <label className="block mb-1 text-sm font-medium">
           Radius: {radius} meters
         </label>
         <input
           type="range"
-          min={1000}
+          min={100}
           max={6000}
           step={100}
-          value={radius ?? 1000}
+          value={radius ?? 300}
           onChange={(e) => onRadiusChange(Number(e.target.value))}
           className="w-full"
         />

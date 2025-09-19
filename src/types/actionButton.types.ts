@@ -6,4 +6,5 @@ export default interface ActionButtonProps
   label: string;
   count?: number;
   isLoading?: boolean;
+  styles?: string;
 }

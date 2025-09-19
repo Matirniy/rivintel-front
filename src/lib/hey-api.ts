@@ -25,6 +25,34 @@ export const createClientConfig: CreateClientConfig = (config) => ({
         const jsonResponse =
           typeof response === "string" ? JSON.parse(response) : response;
 
+        if (
+          jsonResponse &&
+          typeof jsonResponse.statusCode === "number" &&
+          (jsonResponse.statusCode < 200 || jsonResponse.statusCode >= 300)
+        ) {
+          console.log(
+            `API RESPONSE STATUS: \x1b[31m${jsonResponse.statusCode}\x1b[0m`
+          );
+
+          const err = new Error(
+            `HTTP error: \x1b[31m${jsonResponse.statusCode}\x1b[0m ${
+              jsonResponse.message
+                ? `- ${
+                    Array.isArray(jsonResponse.message)
+                      ? jsonResponse.message.join("; ")
+                      : String(jsonResponse.message)
+                  }`
+                : ""
+            }`
+          );
+          
+          console.error(JSON.stringify(jsonResponse, null, 2));
+
+          throw err
+        }
+
+        console.log(`API RESPONSE STATUS: \x1b[32m${jsonResponse.statusCode}\x1b[0m`);
+
         if (jsonResponse.data && !jsonResponse.page) return jsonResponse.data;
 
         return jsonResponse;

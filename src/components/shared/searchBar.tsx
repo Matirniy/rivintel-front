@@ -76,7 +76,7 @@ export default function SearchBar() {
 
   return (
     <div className="w-full max-w-screen-xl mx-auto space-y-4">
-      <div className="flex items-center gap-2">
+      <div className="flex items-center">
         <div className="flex items-center w-full rounded-md">
           <input
             type="text"
@@ -94,7 +94,7 @@ export default function SearchBar() {
         </div>
       </div>
 
-      <div className="flex justify-between">
+      <div className="flex flex-wrap justify-between [&>*]:mb-4 max-[700px]:justify-around max-[700px]:[&>*]:w-[42vw] max-[700px]:[&>*]:mx-2">
         <ActionButton
           count={filterConditions.length - 1}
           icon={<FunnelIcon className="w-5 h-5" />}

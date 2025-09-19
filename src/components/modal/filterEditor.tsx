@@ -20,7 +20,7 @@ export default function FilterEditor({
   }
 
   return (
-    <div className="h-[92%]">
+    <div className="h-[calc(100%-90px)]">
       <div className="h-[88%] flex flex-col items-center overflow-auto">
         {filterConditions?.map((_, i) => (
           <FilterCondition key={i} index={i} />
