@@ -25,7 +25,7 @@ export default function UserModal({ setOpen, user, logout }: UserModalProps) {
       <div className="flex flex-col space-y-2">
         {user ? (
           <>
-            <div className="text-center space-y-2">
+            <div className="text-center space-y-2 overflow-hidden">
               <p className="text-sm">
                 Logged in as <strong className="text-base">{user.name}</strong>
               </p>

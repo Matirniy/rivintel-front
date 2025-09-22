@@ -41,7 +41,7 @@ export default function FilterCondition({ index }: { index: number }) {
       </select>
 
       {typeof condition.value === "boolean" ? (
-        <label className="relative inline-flex items-center justify-center w-[2rem] h-8 border border-gray-300 rounded-md cursor-pointer">
+        <label className="relative inline-flex items-center justify-center w-8 h-8 border border-gray-300 rounded-md cursor-pointer">
           <input
             type="checkbox"
             checked={Boolean(condition.value)}

@@ -14,7 +14,7 @@ export default function Header() {
 
   return (
     <header className="bg-base-100 shadow px-2 py-2">
-      <div className="max-w-screen-xl mx-auto flex justify-between items-center">
+      <div className="max-w-(--breakpoint-xl) mx-auto flex justify-between items-center">
         <Link href="/">
           <LogoIcon className="h-10 w-auto text-primary" />
         </Link>

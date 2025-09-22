@@ -6,9 +6,9 @@ import { headers } from "next/headers";
 import Header from "@/components/layout/header";
 import Footer from "@/components/layout/footer";
 import { AuthInit } from "@/components/authInit";
+import AdvertisingIdHandler from "@/components/shared/advertisingIdHandler";
 
 import "./globals.css";
-import AdvertisingIdHandler from "@/components/shared/advertisingIdHandler";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -42,13 +42,13 @@ export default async function RootLayout({
 
   return (
     <html lang="en">
-      <AuthInit />
+      {/* <AuthInit /> */}
       <body className={inter.className}>
-        <div className="flex flex-col h-[100vh]">
+        <div className="flex flex-col h-screen">
           <Header />
 
           <main className="bg-base-200 h-auto md:h-[calc(100%-112px)]">
-            <div className="w-full h-full max-w-screen-xl mx-auto">
+            <div className="w-full h-full max-w-(--breakpoint-xl) mx-auto">
               {children}
             </div>
           </main>

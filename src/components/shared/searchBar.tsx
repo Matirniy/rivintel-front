@@ -76,13 +76,14 @@ export default function SearchBar() {
   };
 
   return (
-    <div className="w-full max-w-screen-xl mx-auto space-y-4">
+    <div className="w-full max-w-(--breakpoint-xl) mx-auto space-y-4">
       <div className="flex items-center">
         <div className="flex items-center w-full rounded-md">
           <input
             type="text"
+            name="businessKeyword"
             placeholder="Write type of business keyword"
-            className="input input-bordered w-full rounded-r-none border-primary focus:outline-none focus:border-blue-900"
+            className="input input-bordered w-full !rounded-none border-primary focus:outline-none focus:border-blue-900"
             value={searchText}
             onChange={(e) => setSearchText(e.target.value)}
           />
@@ -95,7 +96,7 @@ export default function SearchBar() {
         </div>
       </div>
 
-      <div className="flex flex-wrap justify-between [&>*]:mb-4 max-[700px]:justify-around max-[700px]:[&>*]:w-[42vw] max-[700px]:[&>*]:mx-2">
+      <div className="flex flex-wrap justify-between *:mb-4 max-[700px]:justify-around max-[700px]:*:w-[42vw] max-[700px]:*:mx-2">
         <ActionButton
           count={filterConditions.length - 1}
           icon={<FunnelIcon className="w-5 h-5" />}
