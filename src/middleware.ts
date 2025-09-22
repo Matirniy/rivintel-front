@@ -6,11 +6,16 @@ import { refresh } from "./app/api/gen";
 
 export async function middleware(req: NextRequest) {
   const accessToken = req.cookies.get("accessToken")?.value;
-  
+  const { pathname } = req.nextUrl;
+
+  const response = NextResponse.next();
+
+  response.headers.set("x-current-path", pathname);
+
   if (!accessToken || accessToken.trim() === "" || isExpired(accessToken)) {
     const refreshToken = req.cookies.get("refreshToken")?.value;
 
-    if (!refreshToken || refreshToken.trim() === "") return NextResponse.next();
+    if (!refreshToken || refreshToken.trim() === "") return response;
 
     try {
       const { data } = await refresh({
@@ -20,9 +25,7 @@ export async function middleware(req: NextRequest) {
       const { accessToken: newAccessToken, refreshToken: newRefreshToken } =
         data;
 
-      const res = NextResponse.next();
-
-      res.cookies.set("accessToken", newAccessToken, {
+      response.cookies.set("accessToken", newAccessToken, {
         httpOnly: true,
         secure: true,
         sameSite: "strict",
@@ -30,7 +33,7 @@ export async function middleware(req: NextRequest) {
         maxAge: 60 * 60,
       });
 
-      res.cookies.set("refreshToken", newRefreshToken, {
+      response.cookies.set("refreshToken", newRefreshToken, {
         httpOnly: true,
         secure: true,
         sameSite: "strict",
@@ -38,13 +41,13 @@ export async function middleware(req: NextRequest) {
         maxAge: 60 * 60 * 24 * 7,
       });
 
-      return res;
+      return response;
     } catch (e) {
       console.error("Refresh failed", e);
 
-      return NextResponse.next();
+      return response;
     }
   }
 
-  return NextResponse.next();
+  return response;
 }

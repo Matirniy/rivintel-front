@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState, useTransition } from "react";
+import { useEffect, useState, } from "react";
 import { useRouter } from "next/navigation";
 
 import { useAuthStore } from "@/store/auth";
@@ -57,7 +57,7 @@ export default function ProSubscriptionCard() {
 
   return (
     <div className="flex items-center justify-center h-[calc(100vh-112px)] md:h-full">
-      <div className="card w-80 bg-gradient-to-b from-blue-700 to-blue-900 text-white shadow-xl rounded-xl p-6 relative">
+      <div className="card w-80 bg-linear-to-b from-blue-700 to-blue-900 text-white shadow-xl rounded-xl p-6 relative">
         <div className="flex items-center mb-4">
           <div className="w-10 h-10 flex items-center justify-center bg-blue-600 rounded-full mr-3">
             <svg

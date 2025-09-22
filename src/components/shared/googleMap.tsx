@@ -143,7 +143,7 @@ export default function GoogleMapWithRadius() {
           step={100}
           value={radius ?? 300}
           onChange={(e) => onRadiusChange(Number(e.target.value))}
-          className="w-full"
+          className="w-full accent-primary"
         />
       </div>
 

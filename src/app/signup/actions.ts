@@ -11,6 +11,7 @@ export async function register(prevState: any, formData: FormData) {
     userName: formData.get("userName")?.toString(),
     email: formData.get("email")?.toString(),
     password: formData.get("password")?.toString(),
+    advertisingId: formData.get("advertisingId")?.toString(),
   };
 
   const result = signupSchema.safeParse(data);
