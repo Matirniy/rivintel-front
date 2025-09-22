@@ -156,7 +156,7 @@ export default function CompanyList() {
   };
 
   return (
-    <div className="h-[calc(100%-128px)]">
+    <div className="h-[calc(100%-128px)] overflow-y-hidden">
       <div className="mb-4">Total: {total} companies</div>
       <div
         className="relative flex flex-col h-[calc(100%-40px)] overflow-y-auto"

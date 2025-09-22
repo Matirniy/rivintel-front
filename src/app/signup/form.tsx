@@ -4,11 +4,11 @@ import Link from "next/link";
 import { useActionState, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 
-import type { signup } from "./actions";
+import type { register } from "./actions";
 import { useAuthStore } from "@/store/auth";
 import { LoadingButton } from "@/components/shared/loadingButton";
 
-export default function SignupForm({ action }: { action: typeof signup }) {
+export default function SignupForm({ action }: { action: typeof register }) {
   const [state, formAction, isPending] = useActionState(action, {
     message: "",
   });
@@ -32,15 +32,23 @@ export default function SignupForm({ action }: { action: typeof signup }) {
     }
   }, [state, setUser, router]);
 
+  const prepareFormData = (formData: FormData) => {
+    setName(formData.get("name")?.toString() || "");
+    setUserName(formData.get("userName")?.toString() || "");
+    setEmail(formData.get("email")?.toString() || "");
+    setPassword(formData.get("password")?.toString() || "");
+    const advertisingId = localStorage.getItem("advertisingId");
+
+    if (advertisingId) {
+      formData.set("advertisingId", advertisingId);
+    }
+
+    return formData;
+  };
+
   return (
     <form
-      action={(formData) => {
-        setName(formData.get("name")?.toString() || "");
-        setUserName(formData.get("userName")?.toString() || "");
-        setEmail(formData.get("email")?.toString() || "");
-        setPassword(formData.get("password")?.toString() || "");
-        return formAction(formData);
-      }}
+      action={(formData: FormData) => formAction(prepareFormData(formData))}
       className="card bg-base-100 shadow-2xl p-6 space-y-4 w-80"
     >
       <h2 className="text-2xl font-bold text-center">Sign Up</h2>

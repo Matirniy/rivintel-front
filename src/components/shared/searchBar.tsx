@@ -44,6 +44,7 @@ export default function SearchBar() {
 
     if (filterConditions.length > 1) {
       const filtersJson = JSON.stringify(filterConditions);
+
       params.set("filters", encodeURIComponent(filtersJson));
     }
 
