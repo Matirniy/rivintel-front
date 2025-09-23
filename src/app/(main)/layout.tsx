@@ -1,14 +1,12 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
-import { headers } from "next/headers";
 
 import Header from "@/components/layout/header";
 import Footer from "@/components/layout/footer";
-import { AuthInit } from "@/components/authInit";
-import AdvertisingIdHandler from "@/components/shared/advertisingIdHandler";
+// import { AuthInit } from "@/components/authInit";
 
-import "./globals.css";
+import "@/app/globals.css"
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -27,19 +25,6 @@ export default async function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const h = await headers();
-  const referer = h.get("x-current-path");
-
-  if (referer === "/welcome") {
-    return (
-      <html lang="en">
-        <AdvertisingIdHandler />
-        <body className={inter.className}>{children}</body>
-        <Analytics />
-      </html>
-    );
-  }
-
   return (
     <html lang="en">
       {/* <AuthInit /> */}

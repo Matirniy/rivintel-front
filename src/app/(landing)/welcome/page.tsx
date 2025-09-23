@@ -2,6 +2,8 @@ import Head from "next/head";
 import LogoIcon from "@/components/icons/logoIcon";
 import Link from "next/link";
 
+import AdvertisingIdHandler from "@/components/shared/advertisingIdHandler";
+
 export default function WelcomePage() {
   return (
     <>
@@ -41,12 +43,12 @@ export default function WelcomePage() {
 
           <h1
             id="page-title"
-            className="absolute top-[18vh] left-2 text-6xl lg:text-[12rem] xl:text-[18rem] font-extrabold select-none text-center animate-growFade"
+            className="absolute top-[14vh] md:top-[18vh] left-2 text-6xl lg:text-[12rem] 2xl:text-[18rem] font-extrabold select-none text-center animate-growFade"
           >
             Full Business Information
           </h1>
 
-          <h2 className="absolute bottom-[27vh] md:bottom-20 right-5 md:left-50 text-2xl sm:text-3xl md:text-5xl lg:text-6xl font-extrabold opacity-90 select-none">
+          <h2 className="absolute bottom-[28vh] md:bottom-20 right-5 md:left-50 text-2xl sm:text-3xl md:text-5xl 2xl:text-6xl font-extrabold opacity-90 select-none">
             AI Analytics
           </h2>
 
@@ -54,7 +56,7 @@ export default function WelcomePage() {
             Flexible Filters
           </h2>
 
-          <h2 className="absolute bottom-[17vh] md:bottom-10 left-5 md:right-15 text-3xl sm:text-4xl md:text-6xl lg:text-8xl font-extrabold opacity-50 text-right select-none">
+          <h2 className="absolute bottom-[20vh] md:bottom-10 left-5 md:right-15 text-3xl sm:text-4xl md:text-6xl 2xl:text-8xl font-extrabold opacity-50 text-right select-none">
             Data Download
           </h2>
 
@@ -72,7 +74,7 @@ export default function WelcomePage() {
             />
           </article>
 
-          <div className="absolute bottom-6 z-20 flex justify-center w-full animate-bounce">
+          <div className="absolute bottom-14 md:bottom-6 z-20 flex justify-center w-full animate-bounce">
             <Link
               href="/"
               className="
@@ -91,6 +93,7 @@ export default function WelcomePage() {
           </div>
         </section>
       </main>
+      <AdvertisingIdHandler />
     </>
   );
 }

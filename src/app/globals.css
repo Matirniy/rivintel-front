@@ -5,7 +5,7 @@
 
 :root {
   --color-primary: #1F3FC3;
-  --color-base-100:  #F7F7EB;
+  --color-base-100: #F7F7EB;
   --color-base-200: #EFEFD7;
   --color-base-300: #DFDFBF;
 }
@@ -36,8 +36,12 @@
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --foreground: #dca54d;
+    --color-primary: #4f7cc4;
+    --color-base-100: #464545;
+    --color-base-200: #303030;
+    --color-base-300: #212121;
+    --color-primary-content: white;
   }
 }
 

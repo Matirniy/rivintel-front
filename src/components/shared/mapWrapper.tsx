@@ -1,6 +1,7 @@
 "use client";
 
 import { GoogleMap, Marker, useJsApiLoader } from "@react-google-maps/api";
+
 import Loader from "./loader";
 
 interface MapWrapperProps {

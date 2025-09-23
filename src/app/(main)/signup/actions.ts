@@ -3,7 +3,7 @@
 import { cookies } from "next/headers";
 
 import { signupSchema } from "@/types/auth";
-import { signup } from "../api/gen";
+import { signup } from "@/app/api/gen";
 
 export async function register(prevState: any, formData: FormData) {
   const data = {

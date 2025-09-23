@@ -2,7 +2,7 @@
 
 import { cookies } from "next/headers";
 import { loginSchema } from "@/types/auth";
-import { login, type Users } from "../api/gen";
+import { login, type Users } from "@/app/api/gen";
 
 type SignInResult =
   | { message: "login"; user: Users }

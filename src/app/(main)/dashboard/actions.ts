@@ -6,11 +6,11 @@ import {
   SortOptions,
 } from "@/types/google.types";
 import DEFAULT_FIELDS from "./constant";
-import { downloadExcel, placeDemoList, placeList } from "../api/gen";
 import {
   TriggerGoogleParams,
   TriggerAnalyzeParams,
 } from "@/types/dashboard.types";
+import { placeList, placeDemoList, downloadExcel } from "@/app/api/gen";
 
 export async function triggerGoogleSearch({
   searchText,
