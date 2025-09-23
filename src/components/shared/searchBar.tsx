@@ -16,7 +16,7 @@ import { useFiltersStore } from "@/store/filters";
 import { useSortingStore } from "@/store/sorting";
 import { useMapSearchStore } from "@/store/map";
 import { downloadFile } from "@/lib/downloadFile";
-import { triggerExcel } from "@/app/dashboard/actions";
+import { triggerExcel } from "@/app/(main)/dashboard/actions";
 
 export default function SearchBar() {
   const pathname = usePathname();

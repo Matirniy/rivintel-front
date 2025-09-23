@@ -2,8 +2,8 @@
 
 import React, { useEffect, useState } from "react";
 import { useMapSearchStore } from "@/store/map";
-import { triggerAnalytic } from "@/app/dashboard/actions";
 import Loader from "../shared/loader";
+import { triggerAnalytic } from "@/app/(main)/dashboard/actions";
 
 interface AnalyticsProps {
   isSubscribed: boolean;
