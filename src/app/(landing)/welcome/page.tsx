@@ -2,6 +2,8 @@ import Head from "next/head";
 import LogoIcon from "@/components/icons/logoIcon";
 import Link from "next/link";
 
+import AdvertisingIdHandler from "@/components/shared/advertisingIdHandler";
+
 export default function WelcomePage() {
   return (
     <>
@@ -91,6 +93,7 @@ export default function WelcomePage() {
           </div>
         </section>
       </main>
+      <AdvertisingIdHandler />
     </>
   );
 }
