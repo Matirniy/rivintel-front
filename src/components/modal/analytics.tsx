@@ -46,7 +46,7 @@ export default function Analytics({ isSubscribed }: AnalyticsProps) {
       <div className="flex-1 mt-4 overflow-auto">
         {loading && <Loader />}
         {!loading && result && (
-          <pre className="p-3 border rounded bg-gray-50 text-sm overflow-x-auto">
+          <pre className="p-3 border border-base-300 rounded bg-base-200 text-sm overflow-x-auto whitespace-pre-wrap break-words">
             {result}
           </pre>
         )}

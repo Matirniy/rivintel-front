@@ -38,7 +38,7 @@ export default function LoginForm({ action }: { action: typeof signIn }) {
 
         return formAction(formData);
       }}
-      className="card bg-base-100 shadow-2xl p-6 space-y-4 w-80"
+      className="card bg-base-100 shadow-2xl p-6 space-y-4 w-full max-w-sm"
     >
       <h2 className="text-2xl font-bold text-center">Login</h2>
 

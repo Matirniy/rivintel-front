@@ -4,6 +4,7 @@ import { Analytics } from "@vercel/analytics/next";
 
 import Header from "@/components/layout/header";
 import Footer from "@/components/layout/footer";
+import ThemeProvider from "@/components/shared/themeProvider";
 // import { AuthInit } from "@/components/authInit";
 
 import "@/app/globals.css"
@@ -26,20 +27,22 @@ export default async function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       {/* <AuthInit /> */}
       <body className={inter.className}>
-        <div className="flex flex-col h-screen">
-          <Header />
+        <ThemeProvider>
+          <div className="flex flex-col h-screen">
+            <Header />
 
-          <main className="bg-base-200 h-auto md:h-[calc(100%-112px)]">
-            <div className="w-full h-full max-w-(--breakpoint-xl) mx-auto">
-              {children}
-            </div>
-          </main>
+            <main className="bg-base-200 h-auto md:h-[calc(100%-112px)]">
+              <div className="w-full h-full max-w-(--breakpoint-xl) mx-auto">
+                {children}
+              </div>
+            </main>
 
-          <Footer />
-        </div>
+            <Footer />
+          </div>
+        </ThemeProvider>
       </body>
       <Analytics />
     </html>

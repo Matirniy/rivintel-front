@@ -12,7 +12,7 @@ export default function TermsOfServicePage() {
       </Head>
 
       <main className="min-h-screen bg-base-200 py-12 px-4 md:px-8">
-        <div className="max-w-4xl mx-auto bg-white p-8 rounded-xl shadow-lg">
+        <div className="max-w-4xl mx-auto bg-base-100 p-5 sm:p-8 rounded-xl shadow-lg">
           <h1 className="text-3xl md:text-5xl font-bold mb-6">
             Terms of Service
           </h1>

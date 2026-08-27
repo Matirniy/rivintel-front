@@ -55,13 +55,20 @@ export default function ProSubscriptionCard() {
     });
   };
 
+  const features = [
+    "Discover every company in your radius",
+    "Get complete business information",
+    "Export all data to Excel effortlessly",
+    "AI-powered analytics for smarter decisions",
+  ];
+
   return (
-    <div className="flex items-center justify-center h-[calc(100vh-112px)] md:h-full">
-      <div className="card w-80 bg-linear-to-b from-blue-700 to-blue-900 text-white shadow-xl rounded-xl p-6 relative">
+    <div className="flex items-center justify-center h-[calc(100vh-112px)] px-4 py-8 md:h-full">
+      <div className="card w-full max-w-sm bg-linear-to-b from-primary to-primary/80 text-primary-content shadow-xl rounded-xl p-5 sm:p-6 relative">
         <div className="flex items-center mb-4">
-          <div className="w-10 h-10 flex items-center justify-center bg-blue-600 rounded-full mr-3">
+          <div className="w-10 h-10 flex items-center justify-center bg-primary-content/15 rounded-full mr-3">
             <svg
-              className="w-5 h-5 text-white"
+              className="w-5 h-5"
               fill="none"
               stroke="currentColor"
               strokeWidth="2"
@@ -79,81 +86,40 @@ export default function ProSubscriptionCard() {
 
         <div className="mb-4">
           <span className="text-4xl font-extrabold">$10</span>
-          <span className="block text-sm text-blue-200">per user/month</span>
+          <span className="block text-sm text-primary-content/70">
+            per user/month
+          </span>
         </div>
 
-        <p className="mb-6 text-blue-100 text-lg font-bold">
+        <p className="mb-6 text-primary-content/90 text-lg font-bold">
           Full access to all features
         </p>
 
-        <ul className="mb-4 space-y-2 text-blue-100">
-          <li className="flex items-center mb-4 text-sm">
-            <svg
-              className="w-4 h-4 mr-2 text-blue-200"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              viewBox="0 0 24 24"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M5 13l4 4L19 7"
-              />
-            </svg>
-            Discover every company in your radius
-          </li>
-          <li className="flex items-center mb-4 text-sm">
-            <svg
-              className="w-4 h-4 mr-2 text-blue-200"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              viewBox="0 0 24 24"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M5 13l4 4L19 7"
-              />
-            </svg>
-            Get complete business information
-          </li>
-          <li className="flex items-center mb-4 text-sm">
-            <svg
-              className="w-4 h-4 mr-2 text-blue-200"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              viewBox="0 0 24 24"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M5 13l4 4L19 7"
-              />
-            </svg>
-            Export all data to Excel effortlessly
-          </li>
-          <li className="flex items-center mb-4 text-sm">
-            <svg
-              className="w-4 h-4 mr-2 text-blue-200"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              viewBox="0 0 24 24"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M5 13l4 4L19 7"
-              />
-            </svg>
-            AI-powered analytics for smarter decisions
-          </li>
+        <ul className="mb-4 space-y-3 text-primary-content/90">
+          {features.map((feature) => (
+            <li key={feature} className="flex items-start text-sm">
+              <svg
+                className="w-4 h-4 mr-2 mt-0.5 shrink-0 text-primary-content/70"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M5 13l4 4L19 7"
+                />
+              </svg>
+              {feature}
+            </li>
+          ))}
         </ul>
 
-        <LoadingButton onClick={handleCheckout} className="w-full">
+        <LoadingButton
+          onClick={handleCheckout}
+          className="w-full !bg-base-100 !text-primary !border-none hover:!brightness-95"
+        >
           Subscribe
         </LoadingButton>
       </div>

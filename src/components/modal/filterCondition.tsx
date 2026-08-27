@@ -27,11 +27,11 @@ export default function FilterCondition({ index }: { index: number }) {
   }
 
   return (
-    <div className="flex items-center justify-between w-[100%] gap-1 my-2 text-sm">
+    <div className="flex items-center justify-between w-full gap-2 my-2 text-sm">
       <select
         value={condition.field}
         onChange={onFieldChange}
-        className="select select-bordered select-sm focus:outline-none focus:ring-0 w-[85%]"
+        className="select select-bordered select-sm focus:outline-none focus:ring-0 flex-1 min-w-0"
       >
         {Object.entries(PlacesFields).map(([key, val]) => (
           <option key={val} value={val}>
@@ -41,7 +41,7 @@ export default function FilterCondition({ index }: { index: number }) {
       </select>
 
       {typeof condition.value === "boolean" ? (
-        <label className="relative inline-flex items-center justify-center w-8 h-8 border border-gray-300 rounded-md cursor-pointer">
+        <label className="relative inline-flex items-center justify-center w-8 h-8 shrink-0 border border-base-300 rounded-md cursor-pointer">
           <input
             type="checkbox"
             checked={Boolean(condition.value)}
@@ -67,13 +67,13 @@ export default function FilterCondition({ index }: { index: number }) {
           type="text"
           value={condition.value as string}
           onChange={onValueChange}
-          className="input input-bordered input-sm"
+          className="input input-bordered input-sm w-24 min-w-0 shrink-0"
         />
       )}
 
       <button
         onClick={() => removeFilterCondition(index)}
-        className="rounded hover:bg-base-200 transition cursor-pointer"
+        className="shrink-0 rounded hover:bg-base-200 transition cursor-pointer"
         aria-label="Close"
       >
         <XMarkIcon className="w-5 h-5 text-error stroke-2" />

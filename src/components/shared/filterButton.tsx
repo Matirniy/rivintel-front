@@ -11,7 +11,7 @@ export default function ActionButton({
   return (
     <button
       {...props}
-      className={`btn btn-outline btn-primary flex items-center gap-2 relative ${styles}`}
+      className={`btn btn-outline btn-primary flex w-full items-center justify-center gap-2 relative sm:w-auto ${styles}`}
     >
       {isLoading ? (
         <span className="loading loading-spinner loading-sm mr-2" />

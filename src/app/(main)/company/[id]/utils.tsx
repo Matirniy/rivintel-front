@@ -94,7 +94,7 @@ const renderValue = (key: string, value: any): React.ReactNode => {
         {openNow !== undefined && (
           <div
             className={`font-bold ${
-              openNow ? "text-green-600" : "text-red-600"
+              openNow ? "text-success" : "text-error"
             }`}
           >
             {openNow ? "Open Now" : "Closed Now"}
@@ -108,8 +108,8 @@ const renderValue = (key: string, value: any): React.ReactNode => {
                 key={day}
                 className={
                   status.toLowerCase().includes("open")
-                    ? "text-green-600"
-                    : "text-red-600"
+                    ? "text-success"
+                    : "text-error"
                 }
               >
                 {status}
@@ -186,9 +186,9 @@ const renderValue = (key: string, value: any): React.ReactNode => {
           <li key={k}>
             {labels[k] || k}:{" "}
             {v ? (
-              <span className="text-green-600">Yes</span>
+              <span className="text-success">Yes</span>
             ) : (
-              <span className="text-red-600">No</span>
+              <span className="text-error">No</span>
             )}
           </li>
         ))}
@@ -234,14 +234,18 @@ const renderValue = (key: string, value: any): React.ReactNode => {
   // Fallback
   if (typeof value === "boolean")
     return value ? (
-      <span className="text-green-600">Yes</span>
+      <span className="text-success">Yes</span>
     ) : (
-      <span className="text-red-600">No</span>
+      <span className="text-error">No</span>
     );
   if (typeof value === "string") return value;
   if (Array.isArray(value)) return value.join(", ");
   if (typeof value === "object" && value !== null)
-    return <pre className="ml-4">{JSON.stringify(value, null, 2)}</pre>;
+    return (
+      <pre className="ml-4 overflow-x-auto whitespace-pre-wrap break-words text-sm">
+        {JSON.stringify(value, null, 2)}
+      </pre>
+    );
 
   return String(value);
 };

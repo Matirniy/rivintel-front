@@ -26,69 +26,61 @@ export default function WelcomePage() {
         <meta property="og:url" content="https://rivintel.com/welcome" />
       </Head>
 
-      <main className="flex items-center justify-center bg-base-200 min-h-screen w-full">
+      <main className="min-h-screen w-full bg-primary text-primary-content">
         <section
-          className="relative flex items-center justify-center min-h-screen bg-[#1F3FC3] overflow-hidden text-white w-full"
+          className="relative flex flex-col min-h-screen w-full overflow-hidden"
           aria-labelledby="page-title"
         >
-          <header className="absolute top-4 left-4 md:top-8 md:left-10 flex items-center gap-2 z-20">
-            <Link href="/" aria-label="Rivintel Home">
-              <LogoIcon
-                className="h-8 md:h-10 w-auto text-primary -ml-3.5"
-                color="white"
-              />
-              <span className="text-lg md:text-2xl font-bold">Rivintel</span>
+          <header className="flex items-center gap-2 px-4 pt-5 sm:px-8 sm:pt-8">
+            <Link href="/" aria-label="Rivintel Home" className="flex items-center gap-2">
+              <LogoIcon className="h-7 w-auto -ml-2 sm:h-9" color="white" />
+              <span className="text-lg font-bold sm:text-2xl">Rivintel</span>
             </Link>
           </header>
 
-          <h1
-            id="page-title"
-            className="absolute top-[14vh] md:top-[18vh] left-2 text-6xl lg:text-[12rem] 2xl:text-[18rem] font-extrabold select-none text-center animate-growFade"
-          >
-            Full Business Information
-          </h1>
+          <div className="relative flex-1 flex flex-col items-center justify-center gap-6 px-4 py-10 text-center sm:gap-8 sm:px-8">
+            <h1
+              id="page-title"
+              className="max-w-4xl text-[clamp(2.5rem,10vw,7rem)] font-extrabold leading-[0.95] select-none animate-growFade"
+            >
+              Full Business Information
+            </h1>
 
-          <h2 className="absolute bottom-[28vh] md:bottom-20 right-5 md:left-50 text-2xl sm:text-3xl md:text-5xl 2xl:text-6xl font-extrabold opacity-90 select-none">
-            AI Analytics
-          </h2>
+            <div className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-[clamp(1.1rem,4vw,2rem)] font-bold">
+              <span className="opacity-90">AI Analytics</span>
+              <span className="opacity-70">Flexible Filters</span>
+              <span className="opacity-50">Data Download</span>
+            </div>
 
-          <h2 className="absolute top-12 right-5 md:right-8 text-2xl sm:text-3xl md:text-5xl lg:text-6xl font-extrabold opacity-70 text-right select-none">
-            Flexible Filters
-          </h2>
+            <article className="relative z-10 w-full max-w-3xl rounded-xl shadow-2xl bg-base-100 p-2">
+              <h3 className="sr-only">
+                Rivintel Demo Video - AI-powered business intelligence
+              </h3>
+              <video
+                className="w-full h-auto rounded-lg"
+                src="https://test-videos.co.uk/vids/bigbuckbunny/mp4/h264/1080/Big_Buck_Bunny_1080_10s_1MB.mp4"
+                autoPlay
+                loop
+                muted
+                playsInline
+                controls
+              />
+            </article>
 
-          <h2 className="absolute bottom-[20vh] md:bottom-10 left-5 md:right-15 text-3xl sm:text-4xl md:text-6xl 2xl:text-8xl font-extrabold opacity-50 text-right select-none">
-            Data Download
-          </h2>
-
-          <article className="relative z-10 w-[95%] md:w-[90%] max-w-4xl rounded-xl shadow-2xl bg-base-100 p-2">
-            <h3 className="sr-only">
-              Rivintel Demo Video - AI-powered business intelligence
-            </h3>
-            <video
-              className="w-full h-auto rounded-lg"
-              src="https://test-videos.co.uk/vids/bigbuckbunny/mp4/h264/1080/Big_Buck_Bunny_1080_10s_1MB.mp4"
-              autoPlay
-              loop
-              muted
-              controls
-            />
-          </article>
-
-          <div className="absolute bottom-14 md:bottom-6 z-20 flex justify-center w-full animate-bounce">
             <Link
               href="/"
               className="
                 relative inline-flex items-center justify-center
-                px-6 py-3 text-lg md:text-3xl font-bold
+                px-6 py-3 text-lg sm:px-8 sm:py-4 sm:text-xl font-bold
                 text-primary bg-white rounded-full shadow-lg
                 border-2 border-transparent
                 transition-all duration-300 ease-in-out
-                hover:border-primary hover:text-primary
-                focus:outline-none md:w-[250px] md:h-[70px]
+                hover:border-white hover:bg-transparent hover:text-white
+                focus:outline-none focus-visible:ring-2 focus-visible:ring-white
+                animate-bounce
               "
             >
-              <span className="absolute inline-flex h-full w-full rounded-full bg-primary opacity-0 transition-opacity duration-300" />
-              <span className="relative">Try it now</span>
+              Try it now
             </Link>
           </div>
         </section>

@@ -51,9 +51,9 @@ export default function GoogleMapWithRadius() {
         map: mapRef.current,
         center: pos,
         radius: r,
-        fillColor: "#3b82f6",
+        fillColor: "#1f3fc3",
         fillOpacity: 0.2,
-        strokeColor: "#3b82f6",
+        strokeColor: "#1f3fc3",
         strokeOpacity: 0.7,
         strokeWeight: 2,
       });

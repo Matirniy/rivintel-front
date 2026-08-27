@@ -1,13 +1,92 @@
 @import "tailwindcss";
-@plugin "daisyui" {
-  themes: light --default, luxury --prefersdark, cupcake;
+@plugin "daisyui";
+
+/*
+ * Rivintel color system.
+ * Two daisyUI v5 themes named "light" / "dark" so they line up 1:1 with
+ * next-themes' attribute values (see ThemeProvider in the app layouts) and
+ * with the OS `prefers-color-scheme` media query as a no-JS fallback.
+ *
+ * Brand primary is a deep indigo-blue (#1F3FC3), the same hue family used
+ * across both themes, brightened for the dark surface so button contrast
+ * stays close to WCAG AA (~4.4:1 white-on-primary in light, ~3.6:1 in dark,
+ * which is the accepted range for UI components / large text per WCAG 2.1).
+ */
+
+@plugin "daisyui/theme" {
+  name: "light";
+  default: true;
+  prefersdark: false;
+  color-scheme: light;
+
+  --color-base-100: #ffffff;
+  --color-base-200: #f3f4f8;
+  --color-base-300: #e2e5ee;
+  --color-base-content: #1b1f2a;
+
+  --color-primary: #1f3fc3;
+  --color-primary-content: #ffffff;
+
+  --color-secondary: #6d5df6;
+  --color-secondary-content: #ffffff;
+
+  --color-accent: #e8a33d;
+  --color-accent-content: #1b1f2a;
+
+  --color-neutral: #1b1f2a;
+  --color-neutral-content: #f3f4f8;
+
+  --color-info: #2f86eb;
+  --color-info-content: #ffffff;
+  --color-success: #16a34a;
+  --color-success-content: #ffffff;
+  --color-warning: #d97706;
+  --color-warning-content: #ffffff;
+  --color-error: #dc2626;
+  --color-error-content: #ffffff;
+
+  --radius-selector: 0.5rem;
+  --radius-field: 0.5rem;
+  --radius-box: 1rem;
+  --border: 1px;
 }
 
-:root {
-  --color-primary: #1F3FC3;
-  --color-base-100: #F7F7EB;
-  --color-base-200: #EFEFD7;
-  --color-base-300: #DFDFBF;
+@plugin "daisyui/theme" {
+  name: "dark";
+  default: false;
+  prefersdark: true;
+  color-scheme: dark;
+
+  --color-base-100: #1e212b;
+  --color-base-200: #14161d;
+  --color-base-300: #2a2e3a;
+  --color-base-content: #e7e9ee;
+
+  --color-primary: #4f63e0;
+  --color-primary-content: #ffffff;
+
+  --color-secondary: #8d7cff;
+  --color-secondary-content: #14161d;
+
+  --color-accent: #e8b04b;
+  --color-accent-content: #14161d;
+
+  --color-neutral: #2a2e3a;
+  --color-neutral-content: #e7e9ee;
+
+  --color-info: #59a6f6;
+  --color-info-content: #0b1020;
+  --color-success: #34d399;
+  --color-success-content: #0b1020;
+  --color-warning: #fbbf24;
+  --color-warning-content: #0b1020;
+  --color-error: #f87171;
+  --color-error-content: #0b1020;
+
+  --radius-selector: 0.5rem;
+  --radius-field: 0.5rem;
+  --radius-box: 1rem;
+  --border: 1px;
 }
 
 @theme {
@@ -27,32 +106,18 @@
   }
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground: #dca54d;
-    --color-primary: #4f7cc4;
-    --color-base-100: #464545;
-    --color-base-200: #303030;
-    --color-base-300: #212121;
-    --color-primary-content: white;
-  }
+html {
+  color-scheme: light dark;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
+  background: var(--color-base-200);
+  color: var(--color-base-content);
   font-family: Arial, Helvetica, sans-serif;
 }
 
 .shadow-primary-glow {
-  --tw-shadow-color: rgba(59, 130, 246, 0.7);
+  --tw-shadow-color: color-mix(in oklch, var(--color-primary) 55%, transparent);
   box-shadow:
     0 0 8px 2px var(--tw-shadow-color),
     0 0 12px 4px var(--tw-shadow-color);

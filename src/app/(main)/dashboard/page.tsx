@@ -6,7 +6,7 @@ import Loader from "@/components/shared/loader";
 
 export default function DashboardPage() {
   return (
-    <div className="px-2 py-4 space-y-4 h-[calc(100vh-112px)] md:h-full">
+    <div className="px-3 py-4 space-y-4 h-[calc(100vh-112px)] sm:px-4 md:h-full">
       <SearchBar />
 
       <Suspense fallback={<Loader />}>

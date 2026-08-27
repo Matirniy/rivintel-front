@@ -20,7 +20,7 @@ export default function MapWrapper({ location }: MapWrapperProps) {
   if (!isLoaded) return <Loader />;
 
   return (
-    <div className="w-full md:h-[40%] h-[200px] mt-4 md:mt-0 md:h-[300px]">
+    <div className="w-full h-full">
       <GoogleMap
         mapContainerStyle={{
           width: "100%",

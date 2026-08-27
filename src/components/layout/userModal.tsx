@@ -21,7 +21,7 @@ export default function UserModal({ setOpen, user, logout }: UserModalProps) {
     }
   };
   return (
-    <div className="absolute right-0 mt-2.5 w-56 bg-base-100 shadow-lg rounded p-4 z-50">
+    <div className="absolute right-0 mt-2.5 w-[min(14rem,calc(100vw-1.5rem))] bg-base-100 border border-base-300 shadow-lg rounded-box p-4 z-50">
       <div className="flex flex-col space-y-2">
         {user ? (
           <>
@@ -33,9 +33,9 @@ export default function UserModal({ setOpen, user, logout }: UserModalProps) {
               <p className="text-sm">
                 Subscription:{" "}
                 {user.isSubscribed ? (
-                  <span className="text-green-600 font-semibold">Active</span>
+                  <span className="text-success font-semibold">Active</span>
                 ) : (
-                  <span className="text-red-500 font-semibold">Not Active</span>
+                  <span className="text-error font-semibold">Not Active</span>
                 )}
               </p>
 

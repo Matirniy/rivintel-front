@@ -49,7 +49,7 @@ export default function SignupForm({ action }: { action: typeof register }) {
   return (
     <form
       action={(formData: FormData) => formAction(prepareFormData(formData))}
-      className="card bg-base-100 shadow-2xl p-6 space-y-4 w-80"
+      className="card bg-base-100 shadow-2xl p-6 space-y-4 w-full max-w-sm"
     >
       <h2 className="text-2xl font-bold text-center">Sign Up</h2>
 
